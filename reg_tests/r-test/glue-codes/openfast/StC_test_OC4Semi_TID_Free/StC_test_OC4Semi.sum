@@ -1,7 +1,7 @@
 
 FAST Summary File
 
-Predictions were generated on 06-Oct-2022 at 09:29:55 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.2.1-dirty
+Predictions were generated on 15-Dec-2022 at 22:41:38 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.2.1-dirty
   compiled with
     NWTC Subroutine Library
     ElastoDyn
@@ -212,22 +212,40 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
      164  SStC2_Mxl             (kN-m)                ServoDyn
      165  SStC2_Myl             (kN-m)                ServoDyn
      166  SStC2_Mzl             (kN-m)                ServoDyn
-     167  Wave1Elev             (m)                   HydroDyn
-     168  HydroFxi              (N)                   HydroDyn
-     169  HydroFyi              (N)                   HydroDyn
-     170  HydroFzi              (N)                   HydroDyn
-     171  HydroMxi              (N-m)                 HydroDyn
-     172  HydroMyi              (N-m)                 HydroDyn
-     173  HydroMzi              (N-m)                 HydroDyn
-     174  B1Surge               (m)                   HydroDyn
-     175  B1Sway                (m)                   HydroDyn
-     176  B1Heave               (m)                   HydroDyn
-     177  B1Roll                (rad)                 HydroDyn
-     178  B1Pitch               (rad)                 HydroDyn
-     179  B1Yaw                 (rad)                 HydroDyn
-     180  FAIRTEN1              (N)                   MoorDyn
-     181  FAIRTEN2              (N)                   MoorDyn
-     182  FAIRTEN3              (N)                   MoorDyn
-     183  ANCHTEN1              (N)                   MoorDyn
-     184  ANCHTEN2              (N)                   MoorDyn
-     185  ANCHTEN3              (N)                   MoorDyn
+     167  SStC3_XQ              (m)                   ServoDyn
+     168  SStC3_XQD             (m/s)                 ServoDyn
+     169  SStC3_YQ              (m)                   ServoDyn
+     170  SStC3_YQD             (m/s)                 ServoDyn
+     171  SStC3_ZQ              (m)                   ServoDyn
+     172  SStC3_ZQD             (m/s)                 ServoDyn
+     173  SStC3_Fxi             (kN)                  ServoDyn
+     174  SStC3_Fyi             (kN)                  ServoDyn
+     175  SStC3_Fzi             (kN)                  ServoDyn
+     176  SStC3_Mxi             (kN-m)                ServoDyn
+     177  SStC3_Myi             (kN-m)                ServoDyn
+     178  SStC3_Mzi             (kN-m)                ServoDyn
+     179  SStC3_Fxl             (kN)                  ServoDyn
+     180  SStC3_Fyl             (kN)                  ServoDyn
+     181  SStC3_Fzl             (kN)                  ServoDyn
+     182  SStC3_Mxl             (kN-m)                ServoDyn
+     183  SStC3_Myl             (kN-m)                ServoDyn
+     184  SStC3_Mzl             (kN-m)                ServoDyn
+     185  Wave1Elev             (m)                   HydroDyn
+     186  HydroFxi              (N)                   HydroDyn
+     187  HydroFyi              (N)                   HydroDyn
+     188  HydroFzi              (N)                   HydroDyn
+     189  HydroMxi              (N-m)                 HydroDyn
+     190  HydroMyi              (N-m)                 HydroDyn
+     191  HydroMzi              (N-m)                 HydroDyn
+     192  B1Surge               (m)                   HydroDyn
+     193  B1Sway                (m)                   HydroDyn
+     194  B1Heave               (m)                   HydroDyn
+     195  B1Roll                (rad)                 HydroDyn
+     196  B1Pitch               (rad)                 HydroDyn
+     197  B1Yaw                 (rad)                 HydroDyn
+     198  FAIRTEN1              (N)                   MoorDyn
+     199  FAIRTEN2              (N)                   MoorDyn
+     200  FAIRTEN3              (N)                   MoorDyn
+     201  ANCHTEN1              (N)                   MoorDyn
+     202  ANCHTEN2              (N)                   MoorDyn
+     203  ANCHTEN3              (N)                   MoorDyn

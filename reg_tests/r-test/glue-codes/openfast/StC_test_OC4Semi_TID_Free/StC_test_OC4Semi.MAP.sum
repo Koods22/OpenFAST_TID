@@ -1,0 +1,42 @@
+Outputs were generated using MAP++ 1.20.10.
+
+    Friday October 28-2022 at 00:05:12 AM
+
+    Gravity constant          [m/s^2]  : 9.81
+    Sea density               [kg/m^3] : 1025.00
+    Water depth               [m]      : 200.00
+    Vessel reference position [m]      : 0.00 , 0.00 , 0.00
+
+---------------------- LINE DICTIONARY ---------------------------------------
+LineType  Diam      MassDenInAir   EA            CB
+[-]       [m]       [kg/m]         [N]           [-]
+---------------------- NODE PROPERTIES ---------------------------------------
+Node  Type       X       Y       Z      M     B     FX    FY    FZ
+[-]   [-]       [m]     [m]     [m]    [kg]  [mˆ3]  [N]   [N]   [N]
+---------------------- LINE PROPERTIES ---------------------------------------
+Line  LineType  UnstrLen  NodeAnch  NodeFair  Flags
+[-]      [-]       [m]       [-]       [-]       [-]
+---------------------- SOLVER OPTIONS-----------------------------------------
+Option 
+[-] 
+(-)       (-)       (m)       (-)       (-)       (-)       (-)      (-) 
+1         main     835.35      20        1         4         -        0 
+2         main     835.35      20        2         5         -        0 
+3         main     835.35      20        3         6         -        0 
+---------------------- SOLVER OPTIONS --------------------------------------- 
+0.001    dtM       - time step to use in mooring integration (s) 
+3.0e6    kbot      - bottom stiffness (Pa/m) 
+3.0e5    cbot      - bottom damping (Pa-s/m) 
+2.0      dtIC      - time interval for analyzing convergence during IC gen (s) 
+60.0     TmaxIC    - max time for ic gen (s) 
+4.0      CdScaleIC - factor by which to scale drag coefficients during dynamic relaxation (-) 
+0.01    threshIC  - threshold for IC convergence (-) 
+------------------------ OUTPUTS -------------------------------------------- 
+FairTen1 
+FairTen2 
+FairTen3 
+AnchTen1 
+AnchTen2 
+AnchTen3 
+END 
+------------------------- need this line -------------------------------------- 

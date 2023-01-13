@@ -188,9 +188,11 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
 
    call Init_Misc( p, m, ErrStat2, ErrMsg2 )
    if (Failed())  return;
+   
+   !Changes were made here ==================================================================================================
 
    ! Allocate continuous states (x)
-   call AllocAry(x%StC_x, 6, p%NumMeshPts, 'x%StC_x',  ErrStat2,ErrMsg2)
+   call AllocAry(x%StC_x, 8, p%NumMeshPts, 'x%StC_x',  ErrStat2,ErrMsg2) ! Increased the size of the state vector for the TID
    if (Failed())  return;
 
    ! Define initial guess for the system states here:
@@ -199,14 +201,20 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       x%StC_x(2,i_pt) = 0
       x%StC_x(3,i_pt) = InputFileData%StC_Y_DSP
       x%StC_x(4,i_pt) = 0
-      if ((p%StC_DOF_MODE == DOFMode_Indept) .and. p%StC_Z_DOF) then    ! Should be zero for omni and TLCD
+      if (((p%StC_DOF_MODE == DOFMode_Indept) .and. p%StC_Z_DOF) .or. p%StC_DOF_MODE == DOFMode_TID) then    ! Should be zero for omni and TLCD
          x%StC_x(5,i_pt) = InputFileData%StC_Z_DSP
       else
          x%StC_x(5,i_pt) = 0.0_ReKi
       endif
+      if (p%StC_DOFMode == DOF_Mode TID
+         x%StC_x(7,i_pt) = InputFileData%StC_Z_DSP
+      else
+         x%StC_x(7,i_pt) = 0.0_ReKi
+      endif
       x%StC_x(6,i_pt) = 0
+      x%StC_x(8,i_pt) = 0
    enddo
-
+! Changes were made above ====================================================================================================
 
    ! set positions and orientations for tuned mass dampers's
    call AllocAry(InitOut%RelPosition,  3, p%NumMeshPts, 'RelPosition',     ErrStat2,ErrMsg2);  if (Failed())  return;
@@ -340,6 +348,8 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       u%CmdForce  =  0.0_ReKi
       y%MeasDisp  =  0.0_ReKi
       y%MeasVel   =  0.0_ReKi
+      
+      ! Changes made below =================================================================================================
       ! Check that dimensions of x are what we expect
       if (size(p%StC_CChan) /= size(x%StC_x,2)) then
          ErrStat2 = ErrID_Fatal
@@ -349,7 +359,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       ! Set actual values for channels requested
       do i=1,size(p%StC_CChan)
          if (p%StC_CChan(i) > 0) then
-            u%CmdStiff(1:3,p%StC_CChan(i))  = (/ p%K_X, p%K_Y, p%K_Z /)
+            u%CmdStiff(1:3,p%StC_CChan(i))  = (/ p%K_X, p%K_Y, p%K_Z /) !Will need to change this for the extra stiffness in the TID
             u%CmdDamp( 1:3,p%StC_CChan(i))  = (/ p%C_X, p%C_Y, p%C_Z /)
             !u%CmdBrake and u%CmdForce--- leave these at zero for now (no input file method to set it)
             !  The states are sized by (6,NumMeshPts).  NumMeshPts is then used to set
@@ -360,6 +370,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       enddo
    endif
 
+! Changes made above =======================================================================================================
    call cleanup()
 !................................
 CONTAINS
@@ -580,6 +591,8 @@ SUBROUTINE StC_RK4( t, n, u, utimes, p, x, xd, z, OtherState, m, ErrStat, ErrMsg
             x%StC_x(4,i_pt) = 0
             x%StC_x(5,i_pt) = 0
             x%StC_x(6,i_pt) = 0
+            x%StC_x(7,i_pt) = 0     ! Added for the TID DOFs
+            x%StC_x(8,i_pt) = 0
          enddo
          return
       endif
@@ -814,23 +827,13 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             ! inertial contributions from mass of tuned mass dampers and acceleration of point
             ! forces and moments in local coordinates
             
-            m%F_C(1,i_pt) =  m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) !External damping/inerter force test
-            m%F_C(2,i_pt) =  m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt)
-            m%F_C(3,i_pt) =  m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt)
-            
-            m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%F_C(1,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
-            m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%F_C(2,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
-            m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%F_C(3,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
-            
-            !m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
-            !m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
-            !m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
+            m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
+            m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
+            m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
 
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
             m%M_P(2,i_pt) =    F_X_P(3)  * x%StC_x(1,i_pt)  -  F_Z_P(1) * x%StC_x(5,i_pt)
             m%M_P(3,i_pt) =  - F_X_P(2)  * x%StC_x(1,i_pt)  +  F_Y_P(1) * x%StC_x(3,i_pt)    ! NOTE signs match document, but are changed from prior value
-
-            m%F_C(1:3,i_pt)          = 0.0_ReKi
             
             ! forces and moments in global coordinates
             y%Mesh(i_pt)%Force(:,1) =  real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)),m%F_P(1:3,i_pt)),ReKi)
@@ -993,7 +996,7 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             enddo
          endif
          
-         ELSEIF (p%StC_DOF_MODE == DOFMode_TID) THEN
+      ELSEIF (p%StC_DOF_MODE == DOFMode_TID) THEN
 
          ! StrucCtrl external forces of dependent degrees:
          do i_pt=1,p%NumMeshPts
@@ -1008,17 +1011,10 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
 
             ! inertial contributions from mass of tuned mass dampers and acceleration of point
             ! forces and moments in local coordinates
-           !m%F_C(1,i_pt) =  m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt)
-           !m%F_C(2,i_pt) =  m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt)
-           !m%F_C(3,i_pt) =  m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt)
-            
-            !m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%F_C(1,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
-            !m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%F_C(2,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
-            !m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%F_C(3,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
 
             m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
             m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
-            m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
+            m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%K(4,i_pt) * x%StC_x(7,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
             
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
             m%M_P(2,i_pt) =    F_X_P(3)  * x%StC_x(1,i_pt)  -  F_Z_P(1) * x%StC_x(5,i_pt)
@@ -1033,11 +1029,13 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
       ! Set output values for the measured displacements for  
       do i=1,size(p%StC_CChan)
          if (p%StC_CChan(i) > 0) then
-            if (p%StC_DOF_MODE == DOFMode_Indept .or. p%StC_DOF_MODE == DOFMode_Omni) then
+            if (p%StC_DOF_MODE == DOFMode_Indept .or. p%StC_DOF_MODE == DOFMode_Omni .or. p%StC_DOF_MODE == DOFMode_TID) then
                !  The states are sized by (6,NumMeshPts).  NumMeshPts is then used to set
                !  size of StC_CChan as well.  For safety, we will check it here.
-               y%MeasDisp(1:3,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i) /)
-               y%MeasVel( 1:3,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i) /)
+                ! Changes made here ========================================================================================
+               y%MeasDisp(1:3,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i), x%StC_x(7,i) /)
+               y%MeasVel( 1:3,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i), x%StC_x(8,i) /)
+               ! Changes made above ========================================================================================
             else
                y%MeasDisp(1:3,p%StC_CChan(i))  = 0.0_ReKi
                y%MeasVel( 1:3,p%StC_CChan(i))  = 0.0_ReKi
@@ -1324,6 +1322,54 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             dxdt%StC_x(6,i_pt) = 0
          enddo
          return
+         
+         ! Changes made here ===============================================================================================
+               ! Compute the first time derivatives, dxdt%StC_x(2), dxdt%StC_x(4), and dxdt%StC_x(6), of the continuous states,:
+      ELSE IF (p%StC_DOF_MODE == DOFMode_TID) THEN
+
+         IF (p%StC_X_DOF) THEN
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(2,i_pt) =  ( m%omega_P(2,i_pt)**2 + m%omega_P(3,i_pt)**2 - K(1,i_pt) / p%M_X) * x%StC_x(1,i_pt) &
+                                   - ( m%C_ctrl( 1,i_pt)/p%M_X ) * x%StC_x(2,i_pt)                                   &
+                                   - ( m%C_Brake(1,i_pt)/p%M_X ) * x%StC_x(2,i_pt)                                   &
+                                   + m%Acc(1,i_pt) + m%F_fr(1,i_pt) / p%M_X
+            enddo
+         ELSE
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(2,i_pt) = 0.0_ReKi
+            enddo
+         END IF
+         IF (p%StC_Y_DOF) THEN
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(4,i_pt) =  ( m%omega_P(1,i_pt)**2 + m%omega_P(3,i_pt)**2 - K(2,i_pt) / p%M_Y) * x%StC_x(3,i_pt) &
+                                   - ( m%C_ctrl( 2,i_pt)/p%M_Y ) * x%StC_x(4,i_pt)                                   &
+                                   - ( m%C_Brake(2,i_pt)/p%M_Y ) * x%StC_x(4,i_pt)                                   &
+                                   + m%Acc(2,i_pt) + m%F_fr(2,i_pt) / p%M_Y
+            enddo
+         ELSE
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(4,i_pt) = 0.0_ReKi
+            enddo
+         END IF
+         IF (p%StC_Z_DOF) THEN
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(6,i_pt) =  ( m%omega_P(1,i_pt)**2 + m%omega_P(2,i_pt)**2 - K(3,i_pt) / p%M_Z) * x%StC_x(5,i_pt) &
+                                   - ( m%C_ctrl( 3,i_pt)/p%M_Z ) * x%StC_x(6,i_pt)                                   &
+                                   - ( m%C_Brake(3,i_pt)/p%M_Z ) * x%StC_x(6,i_pt)                                   &
+                                   + m%Acc(3,i_pt) + m%F_fr(3,i_pt) / p%M_Z
+               
+               dxdt%StC_x(8,i_pt) = - K(3,i_pt) / p%M_Z * x%StC_x(5, i_pt)                                           &
+                                    + m%C_ctrl(3,i_pt) / p%M_b * x%StC_x(6,i_pt)                                     &
+                                    - ( p%M_Z + p%M_b ) * K(4,i_pt) / ( p%M_Z * p%M_b ) * x%StC_x(7, i_pt)           &
+                                    - m%C_ctrl(3,i_pt) * x%StC_x(8,i_pt) - m%rddot_P(3,i_pt)
+            enddo
+         ELSE
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(6,i_pt) = 0.0_ReKi
+               dxdt%StC_x(8,i_pt) = 0.0_ReKi
+            enddo
+         END IF
+         ! Changes made above ==============================================================================================
       END IF
 
       call CleanUp()
@@ -1952,7 +1998,10 @@ SUBROUTINE StC_ParseInputFileInfo( PriPath, InputFile, RootName, NumMeshPts, Fil
       !  StC Z mass (kg) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
    call ParseVar( FileInfo_In, Curline, 'StC_Z_M', InputFileData%StC_Z_M, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
-      !  StC Z mass (kg) [used only when StC_DOF_MODE=2]
+      !  StC b mass (kg) [used only when StC_DOF_MODE=2]
+   call ParseVar( FileInfo_In, Curline, 'StC_b_M', InputFileData%StC_XY_M, ErrStat2, ErrMsg2, UnEcho )
+      If (Failed()) return;
+      !  StC Omni mass (kg) [used only when StC_DOF_MODE=2]
    call ParseVar( FileInfo_In, Curline, 'StC_XY_M', InputFileData%StC_XY_M, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
       !  StC X stiffness (N/m)
@@ -2196,7 +2245,7 @@ subroutine    StC_ValidatePrimaryData( InputFileData, InitInp, ErrStat, ErrMsg )
          InputFileData%StC_DOF_MODE /= DOFMode_Indept       .and. &
          InputFileData%StC_DOF_MODE /= DOFMode_Omni         .and. &
          InputFileData%StC_DOF_MODE /= DOFMode_TLCD         .and. &
-         InputFileData%StC_DOF_MODE /= DOFMode_TID          .and. &
+         InputFileData%StC_DOF_MODE /= DOFMode_TID          .and. & !Updated for the TID implementation
          InputFileData%StC_DOF_MODE /= DOFMode_Prescribed) &
       CALL SetErrStat( ErrID_Fatal, 'DOF mode (StC_DOF_MODE) must be 0 (no DOF), 1 (two independent DOFs), '// &
                'or 2 (omni-directional), or 3 (TLCD), 4 (prescribed force time-series), or 5 (TID).', ErrStat, ErrMsg, RoutineName )
