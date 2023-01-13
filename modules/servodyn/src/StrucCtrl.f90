@@ -206,7 +206,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       else
          x%StC_x(5,i_pt) = 0.0_ReKi
       endif
-      if (p%StC_DOFMode == DOF_Mode TID
+      if (p%StC_DOFMode == DOF_Mode TID)
          x%StC_x(7,i_pt) = InputFileData%StC_Z_DSP
       else
          x%StC_x(7,i_pt) = 0.0_ReKi
@@ -414,6 +414,7 @@ CONTAINS
          m%K(1,i_pt) = p%K_X
          m%K(2,i_pt) = p%K_Y
          m%K(3,i_pt) = p%K_Z
+         m%K(4,i_pt) = p%K_b
       enddo
 
       ! indexing
@@ -1033,12 +1034,12 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
                !  The states are sized by (6,NumMeshPts).  NumMeshPts is then used to set
                !  size of StC_CChan as well.  For safety, we will check it here.
                 ! Changes made here ========================================================================================
-               y%MeasDisp(1:3,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i), x%StC_x(7,i) /)
-               y%MeasVel( 1:3,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i), x%StC_x(8,i) /)
+               y%MeasDisp(1:4,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i), x%StC_x(7,i) /)
+               y%MeasVel( 1:4,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i), x%StC_x(8,i) /)
                ! Changes made above ========================================================================================
             else
-               y%MeasDisp(1:3,p%StC_CChan(i))  = 0.0_ReKi
-               y%MeasVel( 1:3,p%StC_CChan(i))  = 0.0_ReKi
+               y%MeasDisp(1:4,p%StC_CChan(i))  = 0.0_ReKi
+               y%MeasVel( 1:4,p%StC_CChan(i))  = 0.0_ReKi
             endif
          endif
       enddo
@@ -1103,6 +1104,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
          K(1,:) = p%K_X
          K(2,:) = p%K_Y
          K(3,:) = p%K_Z
+         K(4,:) = p%K_b
       END IF
 
 
@@ -1354,8 +1356,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
          IF (p%StC_Z_DOF) THEN
             do i_pt=1,p%NumMeshPts
                dxdt%StC_x(6,i_pt) =  ( m%omega_P(1,i_pt)**2 + m%omega_P(2,i_pt)**2 - K(3,i_pt) / p%M_Z) * x%StC_x(5,i_pt) &
-                                   - ( m%C_ctrl( 3,i_pt)/p%M_Z ) * x%StC_x(6,i_pt)                                   &
-                                   - ( m%C_Brake(3,i_pt)/p%M_Z ) * x%StC_x(6,i_pt)                                   &
+                                   - ( K(4,i_pt)/p%M_Z ) * x%StC_x(7,i_pt)                                   &
                                    + m%Acc(3,i_pt) + m%F_fr(3,i_pt) / p%M_Z
                
                dxdt%StC_x(8,i_pt) = - K(3,i_pt) / p%M_Z * x%StC_x(5, i_pt)                                           &
@@ -2401,6 +2402,10 @@ SUBROUTINE StC_SetParameters( InputFileData, InitInp, p, Interval, ErrStat, ErrM
    p%M_Z = InputFileData%StC_Z_M
    p%K_Z = InputFileData%StC_Z_K
    p%C_Z = InputFileData%StC_Z_C
+   
+   ! StC TID Parameters
+   p%M_b = InputFileData%StC_b_M
+   p%K_b = InputFileData%StC_b_K
 
    ! StC Omni parameters
    p%M_XY = InputFileData%StC_XY_M
