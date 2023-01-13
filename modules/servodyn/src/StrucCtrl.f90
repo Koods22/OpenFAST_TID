@@ -1999,9 +1999,9 @@ SUBROUTINE StC_ParseInputFileInfo( PriPath, InputFile, RootName, NumMeshPts, Fil
    call ParseVar( FileInfo_In, Curline, 'StC_Z_M', InputFileData%StC_Z_M, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
       !  StC b mass (kg) [used only when StC_DOF_MODE=2]
-   call ParseVar( FileInfo_In, Curline, 'StC_b_M', InputFileData%StC_XY_M, ErrStat2, ErrMsg2, UnEcho )
+   call ParseVar( FileInfo_In, Curline, 'StC_b_M', InputFileData%StC_b_M, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
-      !  StC Omni mass (kg) [used only when StC_DOF_MODE=2]
+      !  StC XY mass (kg) [used only when StC_DOF_MODE=2]
    call ParseVar( FileInfo_In, Curline, 'StC_XY_M', InputFileData%StC_XY_M, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
       !  StC X stiffness (N/m)
@@ -2012,6 +2012,9 @@ SUBROUTINE StC_ParseInputFileInfo( PriPath, InputFile, RootName, NumMeshPts, Fil
       If (Failed()) return;
       !  StC Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
    call ParseVar( FileInfo_In, Curline, 'StC_Z_K', InputFileData%StC_Z_K, ErrStat2, ErrMsg2, UnEcho )
+      If (Failed()) return;
+      !  StC b stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+   call ParseVar( FileInfo_In, Curline, 'StC_b_K', InputFileData%StC_b_K, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
       !  StC X damping (N/(m/s))
    call ParseVar( FileInfo_In, Curline, 'StC_X_C', InputFileData%StC_X_C, ErrStat2, ErrMsg2, UnEcho )
