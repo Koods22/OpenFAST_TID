@@ -206,7 +206,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       else
          x%StC_x(5,i_pt) = 0.0_ReKi
       endif
-      if (p%StC_DOFMode == DOF_Mode TID)
+      if (p%StC_DOF_Mode == DOFMode_TID) then
          x%StC_x(7,i_pt) = InputFileData%StC_Z_DSP
       else
          x%StC_x(7,i_pt) = 0.0_ReKi
@@ -359,13 +359,13 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       ! Set actual values for channels requested
       do i=1,size(p%StC_CChan)
          if (p%StC_CChan(i) > 0) then
-            u%CmdStiff(1:3,p%StC_CChan(i))  = (/ p%K_X, p%K_Y, p%K_Z /) !Will need to change this for the extra stiffness in the TID
+            u%CmdStiff(1:4,p%StC_CChan(i))  = (/ p%K_X, p%K_Y, p%K_Z, p%K_b/) !Will need to change this for the extra stiffness in the TID
             u%CmdDamp( 1:3,p%StC_CChan(i))  = (/ p%C_X, p%C_Y, p%C_Z /)
             !u%CmdBrake and u%CmdForce--- leave these at zero for now (no input file method to set it)
             !  The states are sized by (6,NumMeshPts).  NumMeshPts is then used to set
             !  size of StC_CChan as well.  For safety, we will check it here.
-            y%MeasDisp(1:3,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i) /)
-            y%MeasVel( 1:3,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i) /)
+            y%MeasDisp(1:4,p%StC_CChan(i))  = (/ x%StC_x(1,i), x%StC_x(3,i), x%StC_x(5,i), x%StC_x(7,i) /)
+            y%MeasVel( 1:4,p%StC_CChan(i))  = (/ x%StC_x(2,i), x%StC_x(4,i), x%StC_x(6,i), x%StC_x(8,i) /)
          endif
       enddo
    endif
@@ -394,7 +394,6 @@ CONTAINS
       !        from each tuned mass system at some later point
       call AllocAry(m%F_P    , 3, p%NumMeshPts,'F_P'     , ErrStat, ErrMsg);  if (ErrStat >= AbortErrLev) return;
       call AllocAry(m%M_P    , 3, p%NumMeshPts,'M_P'     , ErrStat, ErrMsg);  if (ErrStat >= AbortErrLev) return;
-      call AllocAry(m%F_C    , 3, p%NumMeshPts,'F_C'     , ErrStat, ErrMsg);  if (ErrStat >= AbortErrLev) return;
 
       !  External and stop forces
       !  Note: these variables had been allocated multiple places before and sometimes passed between routines. So
@@ -810,7 +809,6 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             y%Mesh(i_pt)%Moment(:,1) = 0.0_ReKi
             m%F_P(1:3,i_pt)          = 0.0_ReKi
             m%M_P(1:3,i_pt)          = 0.0_ReKi
-            m%F_C(1:3,i_pt)          = 0.0_ReKi
          enddo
       ELSEIF (p%StC_DOF_MODE == DOFMode_Indept) THEN
 
@@ -864,8 +862,7 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%M_P(1,i_pt) = - F_XY_P(3) * x%StC_x(3,i_pt)
             m%M_P(2,i_pt) =   F_XY_P(3) * x%StC_x(1,i_pt)
             m%M_P(3,i_pt) = - F_XY_P(1) * x%StC_x(3,i_pt) + F_XY_P(2) * x%StC_x(1,i_pt)
-            
-            m%F_C(1:3,i_pt)          = 0.0_ReKi
+
 
             ! forces and moments in global coordinates
             y%Mesh(i_pt)%Force(:,1) =  real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)),m%F_P(1:3,i_pt)),ReKi)
@@ -967,8 +964,7 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%M_P(2,i_pt) = -F_x_tlcd_WR_N*((p%L_X-p%B_X)/2+x%StC_x(1,i_pt)) - F_x_tlcd_WL_N*((p%L_X-p%B_X)/2-x%StC_x(1,i_pt)) + F_x_otlcd_WB_N*((p%L_Y-p%B_Y)/2+x%StC_x(3,i_pt)) + F_x_otlcd_WF_N*((p%L_Y-p%B_Y)/2-x%StC_x(3,i_pt))
             m%M_P(3,i_pt) =  F_y_tlcd_WR_N*p%B_X*.5 - F_y_tlcd_WL_N*p%B_X*.5 + F_x_otlcd_WB_N*p%B_Y*.5 - F_x_otlcd_WF_N*p%B_Y*.5
 
-            m%F_C(1:3,i_pt)          = 0.0_ReKi
-            
+
             ! forces and moments in global coordinates
             y%Mesh(i_pt)%Force(:,1)  = real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)), m%F_P(1:3,i_pt)),ReKi)
             y%Mesh(i_pt)%Moment(:,1) = real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)), m%M_P(1:3,i_pt)),ReKi)
@@ -981,7 +977,6 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%F_P(i,:)    = InterpStp( real(Time,ReKi), p%StC_PrescribedForce(1,:),p%StC_PrescribedForce(i+1,:),m%PrescribedInterpIdx, size(p%StC_PrescribedForce,2))
             ! Get interpolated moment  -- this is not in any particular coordinate system yet
             m%M_P(i,:)    = InterpStp( real(Time,ReKi), p%StC_PrescribedForce(1,:),p%StC_PrescribedForce(i+4,:),m%PrescribedInterpIdx, size(p%StC_PrescribedForce,2))
-            m%F_C(1:3,i_pt)          = 0.0_ReKi
          enddo
          if (p%PrescribedForcesCoordSys == PRESCRIBED_FORCE_GLOBAL) then
             ! Global coords
@@ -1125,13 +1120,13 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             m%Acc(1:3,i_pt) = 0.0_ReKi 
          enddo
 
-      ELSEIF (p%StC_DOF_MODE == DOFMode_Indept) THEN
+      ELSEIF ((p%StC_DOF_MODE == DOFMode_Indept) .or. (p%StC_DOF_MODE == DOFMode_TID)) THEN
 
          do i_pt=1,p%NumMeshPts
             ! Aggregate acceleration terms
             m%Acc(1,i_pt) = - m%rddot_P(1,i_pt) + m%a_G(1,i_pt) + 1 / p%M_X * ( m%F_ext(1,i_pt) + m%F_stop(1,i_pt) - m%F_table(1,i_pt) )
             m%Acc(2,i_pt) = - m%rddot_P(2,i_pt) + m%a_G(2,i_pt) + 1 / p%M_Y * ( m%F_ext(2,i_pt) + m%F_stop(2,i_pt) - m%F_table(2,i_pt) )
-            m%Acc(3,i_pt) = - m%rddot_P(3,i_pt) + m%a_G(3,i_pt) + 1 / p%M_Z * ( m%F_ext(3,i_pt) + m%F_stop(3,i_pt) - m%F_table(3,i_pt) + p%StC_Z_PreLd )
+            m%Acc(3,i_pt) = - m%rddot_P(3,i_pt) + m%a_G(3,i_pt) + 1 / p%M_Z * ( m%F_ext(3,i_pt) + m%F_stop(3,i_pt) - m%F_table(3,i_pt) + p%StC_Z_Preld )
          enddo
 
       ELSE IF (p%StC_DOF_MODE == DOFMode_Omni) THEN
@@ -1152,7 +1147,6 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             m%Acc(2,i_pt) = - m%rddot_P(2,i_pt) + m%a_G(2,i_pt) + 1 / p%M_XY * ( m%F_ext(2,i_pt) + m%F_stop(2,i_pt) - m%F_table(2,i_pt)*(m%F_k(2,i_pt)) )
             m%Acc(3,i_pt) = 0.0_ReKi
          enddo
-
       ENDIF
 
 
@@ -2464,21 +2458,27 @@ SUBROUTINE StC_SetParameters( InputFileData, InitInp, p, Interval, ErrStat, ErrM
       p%F_TBL = InputFileData%F_TBL
    endif
 
+   ! Changes made here =====================================================================================================
    ! Spring preload in ZDof
    p%StC_Z_PreLd = 0.0_ReKi
    TmpCh = trim(InputFileData%StC_Z_PreLdC)
    call Conv2UC(TmpCh)
-   if (InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Z_DOF .and. &
+   if (((InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Z_DOF) .or. InputFileData%StC_DOF_MODE == DOFMode_TID) .and. &
          (INDEX(TmpCh, "NONE") /= 1) ) then
       if (INDEX(TmpCh, "GRAVITY") == 1 ) then  ! if gravity, then calculate
+         if (InputFileData%StC_DOF_MODE == DOFMode_TID) then
+         p%StC_Z_PreLd = -p%Gravity(3)*(p%M_Z + p%M_b)
+         else 
          p%StC_Z_PreLd = -p%Gravity(3)*p%M_Z
+         end if
       else
          READ (InputFileData%StC_Z_PreLdC,*,IOSTAT=ErrStat2)   p%StC_Z_PreLd     ! Read a real number and store
          if (ErrStat2 /= 0) call SetErrStat(ErrID_Fatal,'StC_Z_PreLd must be "gravity", "none" or a real number', ErrStat,ErrMsg,RoutineName)
          if (ErrStat >= ErrID_Fatal) return
       endif
    endif
-
+! Changes made above =======================================================================================================
+         
    ! Prescribed forces
    p%PrescribedForcesCoordSys =  InputFileData%PrescribedForcesCoordSys
    if (allocated(InputFileData%StC_PrescribedForce)) then

@@ -50,10 +50,12 @@ IMPLICIT NONE
     REAL(ReKi)  :: StC_X_M      !< StC X mass [kg]
     REAL(ReKi)  :: StC_Y_M      !< StC Y mass [kg]
     REAL(ReKi)  :: StC_Z_M      !< StC Z mass [kg]
+    REAL(ReKi)  :: StC_b_M      !< StC b mass (For TID Only) [kg]
     REAL(ReKi)  :: StC_XY_M      !< StC XY mass [kg]
     REAL(ReKi)  :: StC_X_K      !< StC X stiffness [N/m]
     REAL(ReKi)  :: StC_Y_K      !< StC Y stiffness [N/m]
-    REAL(ReKi)  :: StC_Z_K      !< StC Y stiffness [N/m]
+    REAL(ReKi)  :: StC_Z_K      !< StC Z stiffness [N/m]
+    REAL(ReKi)  :: StC_b_K      !< StC b stiffness (For TID Only) [N/m]
     REAL(ReKi)  :: StC_X_C      !< StC X damping [N/(m/s)]
     REAL(ReKi)  :: StC_Y_C      !< StC Y damping [N/(m/s)]
     REAL(ReKi)  :: StC_Z_C      !< StC Z damping [N/(m/s)]
@@ -173,7 +175,6 @@ IMPLICIT NONE
     REAL(ReKi) , DIMENSION(:,:), ALLOCATABLE  :: alpha_P      !< Rotational    aceeleration vector, local coordinates for point [rad/s^2]
     REAL(ReKi) , DIMENSION(:,:), ALLOCATABLE  :: F_P      !< StC force  vector, local coordinates for point [N]
     REAL(ReKi) , DIMENSION(:,:), ALLOCATABLE  :: M_P      !< StC moment vector, local coordinates for point [N-m]
-    REAL(ReKi) , DIMENSION(:,:), ALLOCATABLE  :: F_C      !< StC force vector for damping, local coordinates for point [N]
     REAL(ReKi) , DIMENSION(:,:), ALLOCATABLE  :: Acc      !< StC aggregated acceleration in X,Y local coordinates for point [m/s^2]
     INTEGER(IntKi)  :: PrescribedInterpIdx      !< Index for interpolation of Prescribed force array [-]
   END TYPE StC_MiscVarType
@@ -282,10 +283,12 @@ CONTAINS
     DstInputFileData%StC_X_M = SrcInputFileData%StC_X_M
     DstInputFileData%StC_Y_M = SrcInputFileData%StC_Y_M
     DstInputFileData%StC_Z_M = SrcInputFileData%StC_Z_M
+    DstInputFileData%StC_b_M = SrcInputFileData%StC_b_M
     DstInputFileData%StC_XY_M = SrcInputFileData%StC_XY_M
     DstInputFileData%StC_X_K = SrcInputFileData%StC_X_K
     DstInputFileData%StC_Y_K = SrcInputFileData%StC_Y_K
     DstInputFileData%StC_Z_K = SrcInputFileData%StC_Z_K
+    DstInputFileData%StC_b_K = SrcInputFileData%StC_b_K
     DstInputFileData%StC_X_C = SrcInputFileData%StC_X_C
     DstInputFileData%StC_Y_C = SrcInputFileData%StC_Y_C
     DstInputFileData%StC_Z_C = SrcInputFileData%StC_Z_C
@@ -442,10 +445,12 @@ ENDIF
       Re_BufSz   = Re_BufSz   + 1  ! StC_X_M
       Re_BufSz   = Re_BufSz   + 1  ! StC_Y_M
       Re_BufSz   = Re_BufSz   + 1  ! StC_Z_M
+      Re_BufSz   = Re_BufSz   + 1  ! StC_b_M
       Re_BufSz   = Re_BufSz   + 1  ! StC_XY_M
       Re_BufSz   = Re_BufSz   + 1  ! StC_X_K
       Re_BufSz   = Re_BufSz   + 1  ! StC_Y_K
       Re_BufSz   = Re_BufSz   + 1  ! StC_Z_K
+      Re_BufSz   = Re_BufSz   + 1  ! StC_b_K
       Re_BufSz   = Re_BufSz   + 1  ! StC_X_C
       Re_BufSz   = Re_BufSz   + 1  ! StC_Y_C
       Re_BufSz   = Re_BufSz   + 1  ! StC_Z_C
@@ -566,6 +571,8 @@ ENDIF
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%StC_Z_M
     Re_Xferred = Re_Xferred + 1
+    ReKiBuf(Re_Xferred) = InData%StC_b_M
+    Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%StC_XY_M
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%StC_X_K
@@ -573,6 +580,8 @@ ENDIF
     ReKiBuf(Re_Xferred) = InData%StC_Y_K
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%StC_Z_K
+    Re_Xferred = Re_Xferred + 1
+    ReKiBuf(Re_Xferred) = InData%StC_b_K
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%StC_X_C
     Re_Xferred = Re_Xferred + 1
@@ -786,6 +795,8 @@ ENDIF
     Re_Xferred = Re_Xferred + 1
     OutData%StC_Z_M = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
+    OutData%StC_b_M = ReKiBuf(Re_Xferred)
+    Re_Xferred = Re_Xferred + 1
     OutData%StC_XY_M = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%StC_X_K = ReKiBuf(Re_Xferred)
@@ -793,6 +804,8 @@ ENDIF
     OutData%StC_Y_K = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%StC_Z_K = ReKiBuf(Re_Xferred)
+    Re_Xferred = Re_Xferred + 1
+    OutData%StC_b_K = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%StC_X_C = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
@@ -3151,20 +3164,6 @@ IF (ALLOCATED(SrcMiscData%M_P)) THEN
   END IF
     DstMiscData%M_P = SrcMiscData%M_P
 ENDIF
-IF (ALLOCATED(SrcMiscData%F_C)) THEN
-  i1_l = LBOUND(SrcMiscData%F_C,1)
-  i1_u = UBOUND(SrcMiscData%F_C,1)
-  i2_l = LBOUND(SrcMiscData%F_C,2)
-  i2_u = UBOUND(SrcMiscData%F_C,2)
-  IF (.NOT. ALLOCATED(DstMiscData%F_C)) THEN 
-    ALLOCATE(DstMiscData%F_C(i1_l:i1_u,i2_l:i2_u),STAT=ErrStat2)
-    IF (ErrStat2 /= 0) THEN 
-      CALL SetErrStat(ErrID_Fatal, 'Error allocating DstMiscData%F_C.', ErrStat, ErrMsg,RoutineName)
-      RETURN
-    END IF
-  END IF
-    DstMiscData%F_C = SrcMiscData%F_C
-ENDIF
 IF (ALLOCATED(SrcMiscData%Acc)) THEN
   i1_l = LBOUND(SrcMiscData%Acc,1)
   i1_u = UBOUND(SrcMiscData%Acc,1)
@@ -3238,9 +3237,6 @@ IF (ALLOCATED(MiscData%F_P)) THEN
 ENDIF
 IF (ALLOCATED(MiscData%M_P)) THEN
   DEALLOCATE(MiscData%M_P)
-ENDIF
-IF (ALLOCATED(MiscData%F_C)) THEN
-  DEALLOCATE(MiscData%F_C)
 ENDIF
 IF (ALLOCATED(MiscData%Acc)) THEN
   DEALLOCATE(MiscData%Acc)
@@ -3361,10 +3357,6 @@ ENDIF
   IF ( ALLOCATED(InData%M_P) ) THEN
     Int_BufSz   = Int_BufSz   + 2*2  ! M_P upper/lower bounds for each dimension
       Re_BufSz   = Re_BufSz   + SIZE(InData%M_P)  ! M_P
-  END IF
-  IF ( ALLOCATED(InData%F_C) ) THEN
-    Int_BufSz   = Int_BufSz   + 2*2  ! F_C upper/lower bounds for each dimension
-      Re_BufSz   = Re_BufSz   + SIZE(InData%F_C)  ! F_C
   END IF
   Int_BufSz   = Int_BufSz   + 1     ! Acc allocated yes/no
   IF ( ALLOCATED(InData%Acc) ) THEN
@@ -3715,26 +3707,6 @@ ENDIF
       DO i2 = LBOUND(InData%M_P,2), UBOUND(InData%M_P,2)
         DO i1 = LBOUND(InData%M_P,1), UBOUND(InData%M_P,1)
           ReKiBuf(Re_Xferred) = InData%M_P(i1,i2)
-          Re_Xferred = Re_Xferred + 1
-        END DO
-      END DO
-  END IF
-  IF ( .NOT. ALLOCATED(InData%F_C) ) THEN
-    IntKiBuf( Int_Xferred ) = 0
-    Int_Xferred = Int_Xferred + 1
-  ELSE
-    IntKiBuf( Int_Xferred ) = 1
-    Int_Xferred = Int_Xferred + 1
-    IntKiBuf( Int_Xferred    ) = LBOUND(InData%F_C,1)
-    IntKiBuf( Int_Xferred + 1) = UBOUND(InData%F_C,1)
-    Int_Xferred = Int_Xferred + 2
-    IntKiBuf( Int_Xferred    ) = LBOUND(InData%F_C,2)
-    IntKiBuf( Int_Xferred + 1) = UBOUND(InData%F_C,2)
-    Int_Xferred = Int_Xferred + 2
-
-      DO i2 = LBOUND(InData%F_C,2), UBOUND(InData%F_C,2)
-        DO i1 = LBOUND(InData%F_C,1), UBOUND(InData%F_C,1)
-          ReKiBuf(Re_Xferred) = InData%F_C(i1,i2)
           Re_Xferred = Re_Xferred + 1
         END DO
       END DO
@@ -4155,29 +4127,6 @@ ENDIF
       DO i2 = LBOUND(OutData%M_P,2), UBOUND(OutData%M_P,2)
         DO i1 = LBOUND(OutData%M_P,1), UBOUND(OutData%M_P,1)
           OutData%M_P(i1,i2) = ReKiBuf(Re_Xferred)
-          Re_Xferred = Re_Xferred + 1
-        END DO
-      END DO
-  END IF
-   IF ( IntKiBuf( Int_Xferred ) == 0 ) THEN  ! F_C not allocated
-    Int_Xferred = Int_Xferred + 1
-  ELSE
-    Int_Xferred = Int_Xferred + 1
-    i1_l = IntKiBuf( Int_Xferred    )
-    i1_u = IntKiBuf( Int_Xferred + 1)
-    Int_Xferred = Int_Xferred + 2
-    i2_l = IntKiBuf( Int_Xferred    )
-    i2_u = IntKiBuf( Int_Xferred + 1)
-    Int_Xferred = Int_Xferred + 2
-    IF (ALLOCATED(OutData%F_C)) DEALLOCATE(OutData%F_C)
-    ALLOCATE(OutData%F_C(i1_l:i1_u,i2_l:i2_u),STAT=ErrStat2)
-    IF (ErrStat2 /= 0) THEN 
-       CALL SetErrStat(ErrID_Fatal, 'Error allocating OutData%F_C.', ErrStat, ErrMsg,RoutineName)
-       RETURN
-    END IF
-      DO i2 = LBOUND(OutData%F_C,2), UBOUND(OutData%F_C,2)
-        DO i1 = LBOUND(OutData%F_C,1), UBOUND(OutData%F_C,1)
-          OutData%F_C(i1,i2) = ReKiBuf(Re_Xferred)
           Re_Xferred = Re_Xferred + 1
         END DO
       END DO

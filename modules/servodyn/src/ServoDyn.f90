@@ -794,18 +794,20 @@ contains
          do j=1,p%NumBStC
             do k=1,p%NumBl
                p%Jac_Idx_BStC_x(1,k,j) = index_next+1    ! Start index of BStC in x
-               p%Jac_x_indx(index_next+1:index_next+6,1) =  (/ 1, 2, 3, 4, 5, 6/)   ! StC type and field index
-               p%Jac_x_indx(index_next+1:index_next+6,2) =  (/ 1, 2, 3, 1, 2, 3/)   ! component (x,y,z)
-               p%Jac_x_indx(index_next+1:index_next+6,3) =  j                       ! Instance
-               p%Jac_x_indx(index_next+1:index_next+6,4) =  k                       ! blade
+               p%Jac_x_indx(index_next+1:index_next+8,1) =  (/ 1, 2, 3, 4, 5, 6, 7, 8/)   ! StC type and field index
+               p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z,b)
+               p%Jac_x_indx(index_next+1:index_next+8,3) =  j                       ! Instance
+               p%Jac_x_indx(index_next+1:index_next+8,4) =  k                       ! blade
                InitOut%LinNames_x(index_next+1) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state X  m';         ! x      x%BStC(j)%StC_x(1,k)
                InitOut%LinNames_x(index_next+2) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state Y  m';         ! y      x%BStC(j)%StC_x(3,k)
                InitOut%LinNames_x(index_next+3) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state Z  m';         ! z      x%BStC(j)%StC_x(5,k)
-               InitOut%LinNames_x(index_next+4) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s';   ! x-dot  x%BStC(j)%StC_x(2,k)
-               InitOut%LinNames_x(index_next+5) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s';   ! y-dot  x%BStC(j)%StC_x(4,k)
-               InitOut%LinNames_x(index_next+6) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s';   ! z-dot  x%BStC(j)%StC_x(6,k)
-               InitOut%RotFrame_x(index_next+1:index_next+6) = .true.
-               index_next = index_next + 6
+               InitOut%LinNames_x(index_next+4) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state b  m';         ! b      x%BStC(j)%StC_x(7,k)
+               InitOut%LinNames_x(index_next+5) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s';   ! x-dot  x%BStC(j)%StC_x(2,k)
+               InitOut%LinNames_x(index_next+6) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s';   ! y-dot  x%BStC(j)%StC_x(4,k)
+               InitOut%LinNames_x(index_next+7) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s';   ! z-dot  x%BStC(j)%StC_x(6,k)
+               InitOut%LinNames_x(index_next+8) = 'Blade '//trim(num2lstr(k))//' StC '//trim(num2lstr(j))//' local displacement state db/dt  m/s';   ! b-dot  x%BStC(j)%StC_x(8,k)
+               InitOut%RotFrame_x(index_next+1:index_next+8) = .true.
+               index_next = index_next + 8
                p%Jac_Idx_BStC_x(2,k,j) = index_next      ! End index of BStC in x
             enddo
          enddo
@@ -814,16 +816,18 @@ contains
       if (p%NumNStC > 0) then
          do j=1,p%NumNStC
             p%Jac_Idx_NStC_x(1,j) = index_next+1  ! Start index of NStC in x
-            p%Jac_x_indx(index_next+1:index_next+6,1) =  (/ 7, 8, 9,10,11,12/)   ! StC type and field index
-            p%Jac_x_indx(index_next+1:index_next+6,2) =  (/ 1, 2, 3, 1, 2, 3/)   ! component (x,y,z)
-            p%Jac_x_indx(index_next+1:index_next+6,3) =  j                       ! Instance
+            p%Jac_x_indx(index_next+1:index_next+8,1) =  (/ 7, 8, 9,10,11,12/)   ! StC type and field index
+            p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z)
+            p%Jac_x_indx(index_next+1:index_next+8,3) =  j                       ! Instance
             InitOut%LinNames_x(index_next+1) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%NStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%NStC(j)%StC_x(3,1)
             InitOut%LinNames_x(index_next+3) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state Z  m';       ! z      x%NStC(j)%StC_x(5,1)
-            InitOut%LinNames_x(index_next+4) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%NStC(j)%StC_x(2,1)
-            InitOut%LinNames_x(index_next+5) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%NStC(j)%StC_x(4,1)
-            InitOut%LinNames_x(index_next+6) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%NStC(j)%StC_x(6,1)
-            index_next = index_next + 6
+            InitOut%LinNames_x(index_next+4) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state b  m';       ! b      x%NStC(j)%StC_x(7,1)
+            InitOut%LinNames_x(index_next+5) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%NStC(j)%StC_x(2,1)
+            InitOut%LinNames_x(index_next+6) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%NStC(j)%StC_x(4,1)
+            InitOut%LinNames_x(index_next+7) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%NStC(j)%StC_x(6,1)
+            InitOut%LinNames_x(index_next+8) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state db/dt  m/s'; ! b-dot  x%NStC(j)%StC_x(8,1)
+            index_next = index_next + 8
             p%Jac_Idx_NStC_x(2,j) = index_next    ! End index of NStC in x
          enddo
       endif
@@ -837,13 +841,17 @@ contains
             InitOut%LinNames_x(index_next+1) = 'Tower StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%TStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Tower StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%TStC(j)%StC_x(3,1)
             InitOut%LinNames_x(index_next+3) = 'Tower StC '//trim(num2lstr(j))//' local displacement state Z  m';       ! z      x%TStC(j)%StC_x(5,1)
-            InitOut%LinNames_x(index_next+4) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%TStC(j)%StC_x(2,1)
-            InitOut%LinNames_x(index_next+5) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%TStC(j)%StC_x(4,1)
-            InitOut%LinNames_x(index_next+6) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%TStC(j)%StC_x(6,1)
-            index_next = index_next + 6
+            InitOut%LinNames_x(index_next+4) = 'Tower StC '//trim(num2lstr(j))//' local displacement state b  m';       ! b      x%TStC(j)%StC_x(7,1)
+            InitOut%LinNames_x(index_next+5) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%TStC(j)%StC_x(2,1)
+            InitOut%LinNames_x(index_next+6) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%TStC(j)%StC_x(4,1)
+            InitOut%LinNames_x(index_next+7) = 'Tower StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%TStC(j)%StC_x(6,1)
+            InitOut%LinNames_x(index_next+8) = 'Tower StC '//trim(num2lstr(j))//' local displacement state db/dt  m/s'; ! b-dot  x%TStC(j)%StC_x(8,1)
+            index_next = index_next + 8
             p%Jac_Idx_TStC_x(2,j) = index_next    ! End index of TStC in x
          enddo
       endif
+      
+      ! Changes made here ==================================================================================================
       ! Substructure StC -- displacement state
       if (p%NumSStC > 0) then
          do j=1,p%NumSStC
@@ -854,12 +862,15 @@ contains
             InitOut%LinNames_x(index_next+1) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%SStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%SStC(j)%StC_x(3,1)
             InitOut%LinNames_x(index_next+3) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state Z  m';       ! z      x%SStC(j)%StC_x(5,1)
-            InitOut%LinNames_x(index_next+4) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%SStC(j)%StC_x(2,1)
-            InitOut%LinNames_x(index_next+5) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%SStC(j)%StC_x(4,1)
-            InitOut%LinNames_x(index_next+6) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%SStC(j)%StC_x(6,1)
-            index_next = index_next + 6
+            InitOut%LinNames_x(index_next+4) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state b  m';       ! b      x%SStC(j)%StC_x(7,1)
+            InitOut%LinNames_x(index_next+5) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dX/dt  m/s'; ! x-dot  x%SStC(j)%StC_x(2,1)
+            InitOut%LinNames_x(index_next+6) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dY/dt  m/s'; ! y-dot  x%SStC(j)%StC_x(4,1)
+            InitOut%LinNames_x(index_next+7) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state dZ/dt  m/s'; ! z-dot  x%SStC(j)%StC_x(6,1)
+            InitOut%LinNames_x(index_next+8) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state db/dt  m/s'; ! b-dot  x%SStC(j)%StC_x(8,1)
+            index_next = index_next + 8
             p%Jac_Idx_SStC_x(2,j) = index_next    ! End index of SStC in x
          enddo
+         ! Changes made above ==============================================================================================
       endif
    end subroutine SrvD_Init_Jacobian_x
 
@@ -2249,7 +2260,7 @@ SUBROUTINE SrvD_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg
       ! Set StC control channels
       call SetStCInput_CtrlChans(m%u_BStC(1,j))
       ! call Calc
-      CALL StC_CalcOutput( t, m%u_BStC(1,j), p%BStC(j), x%BStC(j), xd%BStC(j), z%BStC(j), OtherState%BStC(j), m%y_BStC(j), m%BStC(j), ErrStat2, ErrMsg2 )
+      CALL StC_CalcOutpu( t, m%u_BStC(1,j), p%BStC(j), x%BStC(j), xd%BStC(j), z%BStC(j), OtherState%BStC(j), m%y_BStC(j), m%BStC(j), ErrStat2, ErrMsg2 )
          if (Failed()) return;
       ! Set BStC outputs
       do k=1,p%NumBl
@@ -3345,61 +3356,79 @@ subroutine SrvD_Perturb_x( p, n, perturb_sign, x, dx )
    ! determine which mesh we're trying to perturb and perturb the input:
    select case( p%Jac_x_indx(n,1) )    ! StC+field index
       !-------------------------------
-      !  1:6  --> x%BStC(instance)%StC_x
+      !  1:8  --> x%BStC(instance)%StC_x
       case ( 1)   ! x
          x%BStC(instance)%StC_x(1,blade) = x%BStC(instance)%StC_x(1,blade) + dx * perturb_sign
       case ( 2)   ! y
          x%BStC(instance)%StC_x(3,blade) = x%BStC(instance)%StC_x(3,blade) + dx * perturb_sign
       case ( 3)   ! z
          x%BStC(instance)%StC_x(5,blade) = x%BStC(instance)%StC_x(5,blade) + dx * perturb_sign
-      case ( 4)   ! x-dot
+      case ( 4)   ! b
+         x%BStC(instance)%StC_x(7,blade) = x%BStC(instance)%StC_x(7,blade) + dx * perturb_sign
+      case ( 5)   ! x-dot
          x%BStC(instance)%StC_x(2,blade) = x%BStC(instance)%StC_x(2,blade) + dx * perturb_sign
-      case ( 5)   ! y-dot
+      case ( 6)   ! y-dot
          x%BStC(instance)%StC_x(4,blade) = x%BStC(instance)%StC_x(4,blade) + dx * perturb_sign
-      case ( 6)   ! z-dot
+      case ( 7)   ! z-dot
          x%BStC(instance)%StC_x(6,blade) = x%BStC(instance)%StC_x(6,blade) + dx * perturb_sign
+      case ( 8)   ! b-dot
+         x%BStC(instance)%StC_x(8,blade) = x%BStC(instance)%StC_x(8,blade) + dx * perturb_sign
       !-------------------------------
-      !  7:12 --> x%NStC(instance)%StC_x
-      case ( 7)   ! x
+      !  9:16 --> x%NStC(instance)%StC_x
+      case ( 9)   ! x
          x%NStC(instance)%StC_x(1,1) = x%NStC(instance)%StC_x(1,1) + dx * perturb_sign
-      case ( 8)   ! y
+      case (10)   ! y
          x%NStC(instance)%StC_x(3,1) = x%NStC(instance)%StC_x(3,1) + dx * perturb_sign
-      case ( 9)   ! z
+      case (11)   ! z
          x%NStC(instance)%StC_x(5,1) = x%NStC(instance)%StC_x(5,1) + dx * perturb_sign
-      case (10)   ! x-dot
+      case (12)   ! b
+         x%NStC(instance)%StC_x(7,1) = x%NStC(instance)%StC_x(7,1) + dx * perturb_sign
+      case (13)   ! x-dot
          x%NStC(instance)%StC_x(2,1) = x%NStC(instance)%StC_x(2,1) + dx * perturb_sign
-      case (11)   ! y-dot
+      case (14)   ! y-dot
          x%NStC(instance)%StC_x(4,1) = x%NStC(instance)%StC_x(4,1) + dx * perturb_sign
-      case (12)   ! z-dot
+      case (15)   ! z-dot
          x%NStC(instance)%StC_x(6,1) = x%NStC(instance)%StC_x(6,1) + dx * perturb_sign
+      case (16)   ! b-dot
+         x%NStC(instance)%StC_x(8,1) = x%NStC(instance)%StC_x(8,1) + dx * perturb_sign
       !-------------------------------
-      ! 13:18 --> x%TStC(instance)%StC_x
-      case (13)   ! x
+      ! 17:24 --> x%TStC(instance)%StC_x
+      case (17)   ! x
          x%TStC(instance)%StC_x(1,1) = x%TStC(instance)%StC_x(1,1) + dx * perturb_sign
-      case (14)   ! y
+      case (18)   ! y
          x%TStC(instance)%StC_x(3,1) = x%TStC(instance)%StC_x(3,1) + dx * perturb_sign
-      case (15)   ! z
+      case (19)   ! z
          x%TStC(instance)%StC_x(5,1) = x%TStC(instance)%StC_x(5,1) + dx * perturb_sign
-      case (16)   ! x-dot
+      case (20)   ! b
+         x%TStC(instance)%StC_x(7,1) = x%TStC(instance)%StC_x(7,1) + dx * perturb_sign
+      case (21)   ! x-dot
          x%TStC(instance)%StC_x(2,1) = x%TStC(instance)%StC_x(2,1) + dx * perturb_sign
-      case (17)   ! y-dot
+      case (22)   ! y-dot
          x%TStC(instance)%StC_x(4,1) = x%TStC(instance)%StC_x(4,1) + dx * perturb_sign
-      case (18)   ! z-dot
+      case (23)   ! z-dot
          x%TStC(instance)%StC_x(6,1) = x%TStC(instance)%StC_x(6,1) + dx * perturb_sign
+      case (24)   ! b-dot
+         x%TStC(instance)%StC_x(8,1) = x%TStC(instance)%StC_x(8,1) + dx * perturb_sign
       !-------------------------------
-      ! 19:24 --> x%SStC(instance)%StC_x
-      case (19)   ! x
+      ! Changes made here ==================================================================================================
+      ! 25:32 --> x%SStC(instance)%StC_x
+      case (25)   ! x
          x%SStC(instance)%StC_x(1,1) = x%SStC(instance)%StC_x(1,1) + dx * perturb_sign
-      case (20)   ! y
+      case (26)   ! y
          x%SStC(instance)%StC_x(3,1) = x%SStC(instance)%StC_x(3,1) + dx * perturb_sign
-      case (21)   ! z
+      case (27)   ! z
          x%SStC(instance)%StC_x(5,1) = x%SStC(instance)%StC_x(5,1) + dx * perturb_sign
-      case (22)   ! x-dot
+      case (28)   ! b
+         x%SStC(instance)%StC_x(7,1) = x%SStC(instance)%StC_x(7,1) + dx * perturb_sign
+      case (29)   ! x-dot
          x%SStC(instance)%StC_x(2,1) = x%SStC(instance)%StC_x(2,1) + dx * perturb_sign
-      case (23)   ! y-dot
+      case (30)   ! y-dot
          x%SStC(instance)%StC_x(4,1) = x%SStC(instance)%StC_x(4,1) + dx * perturb_sign
-      case (24)   ! z-dot
+      case (31)   ! z-dot
          x%SStC(instance)%StC_x(6,1) = x%SStC(instance)%StC_x(6,1) + dx * perturb_sign
+      case (32)   ! b-dot
+         x%SStC(instance)%StC_x(8,1) = x%SStC(instance)%StC_x(8,1) + dx * perturb_sign
+      ! Changes made above =================================================================================================
    end select
 end subroutine SrvD_Perturb_x
 
@@ -3479,10 +3508,12 @@ subroutine Compute_dX( p, x_p, x_m, delta_p, delta_m, dX )
             dX(indx_prev+1) = x_p%BStC(j)%StC_x(1,k) - x_m%BStC(j)%StC_x(1,k)    ! x      x%BStC(j)%StC_x(1,k)
             dX(indx_prev+2) = x_p%BStC(j)%StC_x(3,k) - x_m%BStC(j)%StC_x(3,k)    ! y      x%BStC(j)%StC_x(3,k)
             dX(indx_prev+3) = x_p%BStC(j)%StC_x(5,k) - x_m%BStC(j)%StC_x(5,k)    ! z      x%BStC(j)%StC_x(5,k)
-            dX(indx_prev+4) = x_p%BStC(j)%StC_x(2,k) - x_m%BStC(j)%StC_x(2,k)    ! x-dot  x%BStC(j)%StC_x(2,k)
-            dX(indx_prev+5) = x_p%BStC(j)%StC_x(4,k) - x_m%BStC(j)%StC_x(4,k)    ! y-dot  x%BStC(j)%StC_x(4,k)
-            dX(indx_prev+6) = x_p%BStC(j)%StC_x(6,k) - x_m%BStC(j)%StC_x(6,k)    ! z-dot  x%BStC(j)%StC_x(6,k)
-            indx_prev = indx_prev + 6
+            dX(indx_prev+4) = x_p%BStC(j)%StC_x(7,k) - x_m%BStC(j)%StC_x(7,k)    ! b      x%BStC(j)%StC_x(7,k)
+            dX(indx_prev+5) = x_p%BStC(j)%StC_x(2,k) - x_m%BStC(j)%StC_x(2,k)    ! x-dot  x%BStC(j)%StC_x(2,k)
+            dX(indx_prev+6) = x_p%BStC(j)%StC_x(4,k) - x_m%BStC(j)%StC_x(4,k)    ! y-dot  x%BStC(j)%StC_x(4,k)
+            dX(indx_prev+7) = x_p%BStC(j)%StC_x(6,k) - x_m%BStC(j)%StC_x(6,k)    ! z-dot  x%BStC(j)%StC_x(6,k)
+            dX(indx_prev+8) = x_p%BStC(j)%StC_x(8,k) - x_m%BStC(j)%StC_x(8,k)    ! b-dot  x%BStC(j)%StC_x(6,k)
+            indx_prev = indx_prev + 8
          enddo
       enddo
    endif
@@ -3492,10 +3523,12 @@ subroutine Compute_dX( p, x_p, x_m, delta_p, delta_m, dX )
          dX(indx_prev+1) = x_p%NStC(j)%StC_x(1,1) - x_m%NStC(j)%StC_x(1,1)    ! x      x%NStC(j)%StC_x(1,1)
          dX(indx_prev+2) = x_p%NStC(j)%StC_x(3,1) - x_m%NStC(j)%StC_x(3,1)    ! y      x%NStC(j)%StC_x(3,1)
          dX(indx_prev+3) = x_p%NStC(j)%StC_x(5,1) - x_m%NStC(j)%StC_x(5,1)    ! z      x%NStC(j)%StC_x(5,1)
-         dX(indx_prev+4) = x_p%NStC(j)%StC_x(2,1) - x_m%NStC(j)%StC_x(2,1)    ! x-dot  x%NStC(j)%StC_x(2,1)
-         dX(indx_prev+5) = x_p%NStC(j)%StC_x(4,1) - x_m%NStC(j)%StC_x(4,1)    ! y-dot  x%NStC(j)%StC_x(4,1)
-         dX(indx_prev+6) = x_p%NStC(j)%StC_x(6,1) - x_m%NStC(j)%StC_x(6,1)    ! z-dot  x%NStC(j)%StC_x(6,1)
-         indx_prev = indx_prev + 6
+         dX(indx_prev+4) = x_p%NStC(j)%StC_x(7,1) - x_m%NStC(j)%StC_x(7,1)    ! b      x%NStC(j)%StC_x(7,1)
+         dX(indx_prev+5) = x_p%NStC(j)%StC_x(2,1) - x_m%NStC(j)%StC_x(2,1)    ! x-dot  x%NStC(j)%StC_x(2,1)
+         dX(indx_prev+6) = x_p%NStC(j)%StC_x(4,1) - x_m%NStC(j)%StC_x(4,1)    ! y-dot  x%NStC(j)%StC_x(4,1)
+         dX(indx_prev+7) = x_p%NStC(j)%StC_x(6,1) - x_m%NStC(j)%StC_x(6,1)    ! z-dot  x%NStC(j)%StC_x(6,1)
+         dX(indx_prev+8) = x_p%NStC(j)%StC_x(8,1) - x_m%NStC(j)%StC_x(8,1)    ! b-dot  x%NStC(j)%StC_x(8,1)
+         indx_prev = indx_prev + 8
       enddo
    endif
    if (p%NumTStC > 0) then
@@ -3504,24 +3537,30 @@ subroutine Compute_dX( p, x_p, x_m, delta_p, delta_m, dX )
          dX(indx_prev+1) = x_p%TStC(j)%StC_x(1,1) - x_m%TStC(j)%StC_x(1,1)    ! x      x%TStC(j)%StC_x(1,1)
          dX(indx_prev+2) = x_p%TStC(j)%StC_x(3,1) - x_m%TStC(j)%StC_x(3,1)    ! y      x%TStC(j)%StC_x(3,1)
          dX(indx_prev+3) = x_p%TStC(j)%StC_x(5,1) - x_m%TStC(j)%StC_x(5,1)    ! z      x%TStC(j)%StC_x(5,1)
-         dX(indx_prev+4) = x_p%TStC(j)%StC_x(2,1) - x_m%TStC(j)%StC_x(2,1)    ! x-dot  x%TStC(j)%StC_x(2,1)
-         dX(indx_prev+5) = x_p%TStC(j)%StC_x(4,1) - x_m%TStC(j)%StC_x(4,1)    ! y-dot  x%TStC(j)%StC_x(4,1)
-         dX(indx_prev+6) = x_p%TStC(j)%StC_x(6,1) - x_m%TStC(j)%StC_x(6,1)    ! z-dot  x%TStC(j)%StC_x(6,1)
-         indx_prev = indx_prev + 6
+         dX(indx_prev+4) = x_p%TStC(j)%StC_x(7,1) - x_m%TStC(j)%StC_x(7,1)    ! b      x%TStC(j)%StC_x(5,1)
+         dX(indx_prev+5) = x_p%TStC(j)%StC_x(2,1) - x_m%TStC(j)%StC_x(2,1)    ! x-dot  x%TStC(j)%StC_x(2,1)
+         dX(indx_prev+6) = x_p%TStC(j)%StC_x(4,1) - x_m%TStC(j)%StC_x(4,1)    ! y-dot  x%TStC(j)%StC_x(4,1)
+         dX(indx_prev+7) = x_p%TStC(j)%StC_x(6,1) - x_m%TStC(j)%StC_x(6,1)    ! z-dot  x%TStC(j)%StC_x(6,1)
+         dX(indx_prev+8) = x_p%TStC(j)%StC_x(8,1) - x_m%TStC(j)%StC_x(8,1)    ! b-dot  x%TStC(j)%StC_x(8,1)
+         indx_prev = indx_prev + 8
       enddo
    endif
+   ! Changes made here =====================================================================================================
    if (p%NumSStC > 0) then
       do j=1,p%NumSStC
          indx_prev = p%Jac_Idx_SStC_x(1,j)-1
          dX(indx_prev+1) = x_p%SStC(j)%StC_x(1,1) - x_m%SStC(j)%StC_x(1,1)    ! x      x%SStC(j)%StC_x(1,1)
          dX(indx_prev+2) = x_p%SStC(j)%StC_x(3,1) - x_m%SStC(j)%StC_x(3,1)    ! y      x%SStC(j)%StC_x(3,1)
          dX(indx_prev+3) = x_p%SStC(j)%StC_x(5,1) - x_m%SStC(j)%StC_x(5,1)    ! z      x%SStC(j)%StC_x(5,1)
-         dX(indx_prev+4) = x_p%SStC(j)%StC_x(2,1) - x_m%SStC(j)%StC_x(2,1)    ! x-dot  x%SStC(j)%StC_x(2,1)
-         dX(indx_prev+5) = x_p%SStC(j)%StC_x(4,1) - x_m%SStC(j)%StC_x(4,1)    ! y-dot  x%SStC(j)%StC_x(4,1)
-         dX(indx_prev+6) = x_p%SStC(j)%StC_x(6,1) - x_m%SStC(j)%StC_x(6,1)    ! z-dot  x%SStC(j)%StC_x(6,1)
-         indx_prev = indx_prev + 6
+         dX(indx_prev+4) = x_p%SStC(j)%StC_x(7,1) - x_m%SStC(j)%StC_x(7,1)    ! b      x%SStC(j)%StC_x(5,1)
+         dX(indx_prev+5) = x_p%SStC(j)%StC_x(2,1) - x_m%SStC(j)%StC_x(2,1)    ! x-dot  x%SStC(j)%StC_x(2,1)
+         dX(indx_prev+6) = x_p%SStC(j)%StC_x(4,1) - x_m%SStC(j)%StC_x(4,1)    ! y-dot  x%SStC(j)%StC_x(4,1)
+         dX(indx_prev+7) = x_p%SStC(j)%StC_x(6,1) - x_m%SStC(j)%StC_x(6,1)    ! z-dot  x%SStC(j)%StC_x(6,1)
+         dX(indx_prev+8) = x_p%SStC(j)%StC_x(8,1) - x_m%SStC(j)%StC_x(8,1)    ! b-dot  x%SStC(j)%StC_x(6,1)
+         indx_prev = indx_prev + 8
       enddo
    endif
+   ! Changes made above ====================================================================================================
 
    dX = dX / (delta_p + delta_m)
 end subroutine Compute_dX
@@ -4371,39 +4410,49 @@ CONTAINS
             x_op(idx+1) = x%BStC(j)%StC_x(1,k)    !  x     --> x%BStC(j)%StC_x(1,k)
             x_op(idx+2) = x%BStC(j)%StC_x(3,k)    !  y     --> x%BStC(j)%StC_x(3,k)
             x_op(idx+3) = x%BStC(j)%StC_x(5,k)    !  z     --> x%BStC(j)%StC_x(5,k)
-            x_op(idx+4) = x%BStC(j)%StC_x(2,k)    !  dx/dt --> x%BStC(j)%StC_x(2,k)
-            x_op(idx+5) = x%BStC(j)%StC_x(4,k)    !  dy/dt --> x%BStC(j)%StC_x(4,k)
-            x_op(idx+6) = x%BStC(j)%StC_x(6,k)    !  dz/dt --> x%BStC(j)%StC_x(6,k)
-            idx = idx + 6
+            x_op(idx+4) = x%BStC(j)%StC_x(7,k)    !  b     --> x%BStC(j)%StC_x(7,k)
+            x_op(idx+5) = x%BStC(j)%StC_x(2,k)    !  dx/dt --> x%BStC(j)%StC_x(2,k)
+            x_op(idx+6) = x%BStC(j)%StC_x(4,k)    !  dy/dt --> x%BStC(j)%StC_x(4,k)
+            x_op(idx+7) = x%BStC(j)%StC_x(6,k)    !  dz/dt --> x%BStC(j)%StC_x(6,k)
+            x_op(idx+8) = x%BStC(j)%StC_x(8,k)    !  db/dt --> x%BStC(j)%StC_x(8,k)
+            idx = idx + 8
          enddo
       enddo
       do j=1,p%NumNStC     ! Nacelle StC -- displacement and velocity state
          x_op(idx+1) = x%NStC(j)%StC_x(1,1)       !  x     --> x%NStC(j)%StC_x(1,1)
          x_op(idx+2) = x%NStC(j)%StC_x(3,1)       !  y     --> x%NStC(j)%StC_x(3,1)
          x_op(idx+3) = x%NStC(j)%StC_x(5,1)       !  z     --> x%NStC(j)%StC_x(5,1)
-         x_op(idx+4) = x%NStC(j)%StC_x(2,1)       !  dx/dt --> x%NStC(j)%StC_x(2,1)
-         x_op(idx+5) = x%NStC(j)%StC_x(4,1)       !  dy/dt --> x%NStC(j)%StC_x(4,1)
-         x_op(idx+6) = x%NStC(j)%StC_x(6,1)       !  dz/dt --> x%NStC(j)%StC_x(6,1)
-         idx = idx + 6
+         x_op(idx+4) = x%NStC(j)%StC_x(7,1)       !  b     --> x%NStC(j)%StC_x(7,1)
+         x_op(idx+5) = x%NStC(j)%StC_x(2,1)       !  dx/dt --> x%NStC(j)%StC_x(2,1)
+         x_op(idx+6) = x%NStC(j)%StC_x(4,1)       !  dy/dt --> x%NStC(j)%StC_x(4,1)
+         x_op(idx+7) = x%NStC(j)%StC_x(6,1)       !  dz/dt --> x%NStC(j)%StC_x(6,1)
+         x_op(idx+8) = x%NStC(j)%StC_x(8,1)       !  db/dt --> x%NStC(j)%StC_x(8,1)
+         idx = idx + 8
       enddo
       do j=1,p%NumTStC     ! Tower StC -- displacement and velocity state
          x_op(idx+1) = x%TStC(j)%StC_x(1,1)       !  x     --> x%TStC(j)%StC_x(1,1)
          x_op(idx+2) = x%TStC(j)%StC_x(3,1)       !  y     --> x%TStC(j)%StC_x(3,1)
          x_op(idx+3) = x%TStC(j)%StC_x(5,1)       !  z     --> x%TStC(j)%StC_x(5,1)
-         x_op(idx+4) = x%TStC(j)%StC_x(2,1)       !  dx/dt --> x%TStC(j)%StC_x(2,1)
-         x_op(idx+5) = x%TStC(j)%StC_x(4,1)       !  dy/dt --> x%TStC(j)%StC_x(4,1)
-         x_op(idx+6) = x%TStC(j)%StC_x(6,1)       !  dz/dt --> x%TStC(j)%StC_x(6,1)
-         idx = idx + 6
+         x_op(idx+4) = x%TStC(j)%StC_x(7,1)       !  b     --> x%TStC(j)%StC_x(7,1)
+         x_op(idx+5) = x%TStC(j)%StC_x(2,1)       !  dx/dt --> x%TStC(j)%StC_x(2,1)
+         x_op(idx+6) = x%TStC(j)%StC_x(4,1)       !  dy/dt --> x%TStC(j)%StC_x(4,1)
+         x_op(idx+7) = x%TStC(j)%StC_x(6,1)       !  dz/dt --> x%TStC(j)%StC_x(6,1)
+         x_op(idx+8) = x%TStC(j)%StC_x(8,1)       !  db/dt --> x%TStC(j)%StC_x(8,1)
+         idx = idx + 8
       enddo
+      ! Changes made here ==================================================================================================
       do j=1,p%NumSStC     ! Substructure StC -- displacement and velocity state
          x_op(idx+1) = x%SStC(j)%StC_x(1,1)       !  x     --> x%SStC(j)%StC_x(1,1)
          x_op(idx+2) = x%SStC(j)%StC_x(3,1)       !  y     --> x%SStC(j)%StC_x(3,1)
          x_op(idx+3) = x%SStC(j)%StC_x(5,1)       !  z     --> x%SStC(j)%StC_x(5,1)
-         x_op(idx+4) = x%SStC(j)%StC_x(2,1)       !  dx/dt --> x%SStC(j)%StC_x(2,1)
-         x_op(idx+5) = x%SStC(j)%StC_x(4,1)       !  dy/dt --> x%SStC(j)%StC_x(4,1)
-         x_op(idx+6) = x%SStC(j)%StC_x(6,1)       !  dz/dt --> x%SStC(j)%StC_x(6,1)
+         x_op(idx+4) = x%SStC(j)%StC_x(7,1)       !  b     --> x%SStC(j)%StC_x(7,1)
+         x_op(idx+5) = x%SStC(j)%StC_x(2,1)       !  dx/dt --> x%SStC(j)%StC_x(2,1)
+         x_op(idx+6) = x%SStC(j)%StC_x(4,1)       !  dy/dt --> x%SStC(j)%StC_x(4,1)
+         x_op(idx+7) = x%SStC(j)%StC_x(6,1)       !  dz/dt --> x%SStC(j)%StC_x(6,1)
+         x_op(idx+8) = x%SStC(j)%StC_x(8,1)       !  db/dt --> x%SStC(j)%StC_x(8,1)
          idx = idx + 6
       enddo
+      ! Changes made above =================================================================================================
    end subroutine Get_x_op
 
    !> Get the operating point continuous states derivatives and pack
@@ -4428,38 +4477,46 @@ CONTAINS
             dx_op(idx+1) = dx%BStC(j)%StC_x(1,k)   !  x     --> dx%BStC(j)%StC_x(1,k)
             dx_op(idx+2) = dx%BStC(j)%StC_x(3,k)   !  y     --> dx%BStC(j)%StC_x(3,k)
             dx_op(idx+3) = dx%BStC(j)%StC_x(5,k)   !  z     --> dx%BStC(j)%StC_x(5,k)
-            dx_op(idx+4) = dx%BStC(j)%StC_x(2,k)   !  dx/dt --> dx%BStC(j)%StC_x(2,k)
-            dx_op(idx+5) = dx%BStC(j)%StC_x(4,k)   !  dy/dt --> dx%BStC(j)%StC_x(4,k)
-            dx_op(idx+6) = dx%BStC(j)%StC_x(6,k)   !  dz/dt --> dx%BStC(j)%StC_x(6,k)
-            idx = idx + 6
+            dx_op(idx+4) = dx%BStC(j)%StC_x(7,k)   !  b     --> dx%BStC(j)%StC_x(7,k)
+            dx_op(idx+5) = dx%BStC(j)%StC_x(2,k)   !  dx/dt --> dx%BStC(j)%StC_x(2,k)
+            dx_op(idx+6) = dx%BStC(j)%StC_x(4,k)   !  dy/dt --> dx%BStC(j)%StC_x(4,k)
+            dx_op(idx+7) = dx%BStC(j)%StC_x(6,k)   !  dz/dt --> dx%BStC(j)%StC_x(6,k)
+            dx_op(idx+8) = dx%BStC(j)%StC_x(8,k)   !  db/dt --> dx%BStC(j)%StC_x(8,k)
+            idx = idx + 8
          enddo
       enddo
       do j=1,p%NumNStC     ! Nacelle StC -- displacement and velocity state
          dx_op(idx+1) = dx%NStC(j)%StC_x(1,1)      !  x     --> dx%NStC(j)%StC_x(1,1)
          dx_op(idx+2) = dx%NStC(j)%StC_x(3,1)      !  y     --> dx%NStC(j)%StC_x(3,1)
          dx_op(idx+3) = dx%NStC(j)%StC_x(5,1)      !  z     --> dx%NStC(j)%StC_x(5,1)
-         dx_op(idx+4) = dx%NStC(j)%StC_x(2,1)      !  dx/dt --> dx%NStC(j)%StC_x(2,1)
-         dx_op(idx+5) = dx%NStC(j)%StC_x(4,1)      !  dy/dt --> dx%NStC(j)%StC_x(4,1)
-         dx_op(idx+6) = dx%NStC(j)%StC_x(6,1)      !  dz/dt --> dx%NStC(j)%StC_x(6,1)
-         idx = idx + 6
+         dx_op(idx+4) = dx%NStC(j)%StC_x(7,1)      !  b     --> dx%NStC(j)%StC_x(7,1)
+         dx_op(idx+5) = dx%NStC(j)%StC_x(2,1)      !  dx/dt --> dx%NStC(j)%StC_x(2,1)
+         dx_op(idx+6) = dx%NStC(j)%StC_x(4,1)      !  dy/dt --> dx%NStC(j)%StC_x(4,1)
+         dx_op(idx+7) = dx%NStC(j)%StC_x(6,1)      !  dz/dt --> dx%NStC(j)%StC_x(6,1)
+         dx_op(idx+8) = dx%NStC(j)%StC_x(8,1)      !  db/dt --> dx%NStC(j)%StC_x(8,1)
+         idx = idx + 8
       enddo
       do j=1,p%NumTStC     ! Tower StC -- displacement and velocity state
          dx_op(idx+1) = dx%TStC(j)%StC_x(1,1)      !  x     --> dx%TStC(j)%StC_x(1,1)
          dx_op(idx+2) = dx%TStC(j)%StC_x(3,1)      !  y     --> dx%TStC(j)%StC_x(3,1)
          dx_op(idx+3) = dx%TStC(j)%StC_x(5,1)      !  z     --> dx%TStC(j)%StC_x(5,1)
-         dx_op(idx+4) = dx%TStC(j)%StC_x(2,1)      !  dx/dt --> dx%TStC(j)%StC_x(2,1)
-         dx_op(idx+5) = dx%TStC(j)%StC_x(4,1)      !  dy/dt --> dx%TStC(j)%StC_x(4,1)
-         dx_op(idx+6) = dx%TStC(j)%StC_x(6,1)      !  dz/dt --> dx%TStC(j)%StC_x(6,1)
-         idx = idx + 6
+         dx_op(idx+4) = dx%TStC(j)%StC_x(7,1)      !  b     --> dx%TStC(j)%StC_x(7,1)
+         dx_op(idx+5) = dx%TStC(j)%StC_x(2,1)      !  dx/dt --> dx%TStC(j)%StC_x(2,1)
+         dx_op(idx+6) = dx%TStC(j)%StC_x(4,1)      !  dy/dt --> dx%TStC(j)%StC_x(4,1)
+         dx_op(idx+7) = dx%TStC(j)%StC_x(6,1)      !  dz/dt --> dx%TStC(j)%StC_x(6,1)
+         dx_op(idx+8) = dx%TStC(j)%StC_x(8,1)      !  db/dt --> dx%TStC(j)%StC_x(8,1)
+         idx = idx + 8
       enddo
       do j=1,p%NumSStC     ! Substructure StC -- displacement and velocity state
          dx_op(idx+1) = dx%SStC(j)%StC_x(1,1)      !  x     --> dx%SStC(j)%StC_x(1,1)
          dx_op(idx+2) = dx%SStC(j)%StC_x(3,1)      !  y     --> dx%SStC(j)%StC_x(3,1)
          dx_op(idx+3) = dx%SStC(j)%StC_x(5,1)      !  z     --> dx%SStC(j)%StC_x(5,1)
-         dx_op(idx+4) = dx%SStC(j)%StC_x(2,1)      !  dx/dt --> dx%SStC(j)%StC_x(2,1)
-         dx_op(idx+5) = dx%SStC(j)%StC_x(4,1)      !  dy/dt --> dx%SStC(j)%StC_x(4,1)
-         dx_op(idx+6) = dx%SStC(j)%StC_x(6,1)      !  dz/dt --> dx%SStC(j)%StC_x(6,1)
-         idx = idx + 6
+         dx_op(idx+4) = dx%SStC(j)%StC_x(7,1)      !  b     --> dx%SStC(j)%StC_x(7,1)
+         dx_op(idx+5) = dx%SStC(j)%StC_x(2,1)      !  dx/dt --> dx%SStC(j)%StC_x(2,1)
+         dx_op(idx+6) = dx%SStC(j)%StC_x(4,1)      !  dy/dt --> dx%SStC(j)%StC_x(4,1)
+         dx_op(idx+7) = dx%SStC(j)%StC_x(6,1)      !  dz/dt --> dx%SStC(j)%StC_x(6,1)
+         dx_op(idx+8) = dx%SStC(j)%StC_x(8,1)      !  db/dt --> dx%SStC(j)%StC_x(8,1)
+         idx = idx + 8
       enddo
       ! clean up
       call SrvD_DestroyContState( dx, ErrStat2, ErrMsg2)
