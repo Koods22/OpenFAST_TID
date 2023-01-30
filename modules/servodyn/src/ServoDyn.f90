@@ -756,13 +756,15 @@ contains
       real(ReKi), intent(in   )  :: dx    ! default perturbation size
       integer(IntKi)             :: i, j, k, index_next
       p%Jac_nx = 0                  ! no states other than StC states 
+      ! Changes made below =================================================================================================
       ! StC related states
       p%Jac_nx = p%Jac_nx                    &
-            + p%NumBStC * 2 * 3 * p%NumBl    &  ! 3 displacement state, 3 displacement state derivatives at each BStC instance on each blade
-            + p%NumNStC * 2 * 3              &  ! 3 displacement state, 3 displacement state derivatives at each NStC instance
-            + p%NumTStC * 2 * 3              &  ! 3 displacement state, 3 displacement state derivatives at each TStC instance
-            + p%NumSStC * 2 * 3                 ! 3 displacement state, 3 displacement state derivatives at each SStC instance
- 
+            + p%NumBStC * 2 * 4 * p%NumBl    &  ! 4 displacement state, 4 displacement state derivatives at each BStC instance on each blade
+            + p%NumNStC * 2 * 4              &  ! 4 displacement state, 4 displacement state derivatives at each NStC instance
+            + p%NumTStC * 2 * 4              &  ! 4 displacement state, 4 displacement state derivatives at each TStC instance
+            + p%NumSStC * 2 * 4                 ! 4 displacement state, 4 displacement state derivatives at each SStC instance
+      ! Changes made above =================================================================================================
+      
       ! allocate space for the row/column names and for perturbation sizes
       CALL AllocAry(InitOut%LinNames_x  , p%Jac_nx, 'LinNames_x'  ,   ErrStat2, ErrMsg2);  if (Failed())  return;
       CALL AllocAry(InitOut%RotFrame_x  , p%Jac_nx, 'RotFrame_x'  ,   ErrStat2, ErrMsg2);  if (Failed())  return;
@@ -775,8 +777,8 @@ contains
       call allocAry( p%Jac_x_indx, p%Jac_nx, 4,   'p%Jac_x_indx',   ErrStat2, ErrMsg2);   if (Failed())  return;
       p%Jac_x_indx = 0_IntKi
       ! perturbation sizes
-      CALL AllocAry(p%dx,               24,       'x perturbation', ErrStat2, ErrMsg2);   if (Failed())  return;
-      p%dx(1:24) = dx      ! all state perturbations are the same for disp and velocity
+      CALL AllocAry(p%dx,               32,       'x perturbation', ErrStat2, ErrMsg2);   if (Failed())  return;
+      p%dx(1:32) = dx      ! all state perturbations are the same for disp and velocity
 
       ! Initialize RotFrame and DerivOrder
       InitOut%RotFrame_x   = .false.
@@ -789,6 +791,8 @@ contains
       CALL AllocAry(p%Jac_Idx_TStC_x, 2,          p%NumTStC, 'Jac_Idx_TStC_x', ErrStat2, ErrMsg2); if (Failed()) return;   p%Jac_Idx_TStC_x  = 0_IntKi
       CALL AllocAry(p%Jac_Idx_SStC_x, 2,          p%NumSStC, 'Jac_Idx_SStC_x', ErrStat2, ErrMsg2); if (Failed()) return;   p%Jac_Idx_SStC_x  = 0_IntKi
       index_next = 0                      ! Index counter initialize
+      
+      ! Chnges made here ===================================================================================================
       ! Blade StC -- displacement state
       if (p%NumBStC > 0) then
          do j=1,p%NumBStC
@@ -816,8 +820,8 @@ contains
       if (p%NumNStC > 0) then
          do j=1,p%NumNStC
             p%Jac_Idx_NStC_x(1,j) = index_next+1  ! Start index of NStC in x
-            p%Jac_x_indx(index_next+1:index_next+8,1) =  (/ 7, 8, 9,10,11,12/)   ! StC type and field index
-            p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z)
+            p%Jac_x_indx(index_next+1:index_next+8,1) =  (/ 9, 10, 11, 12, 13, 14, 15, 16/)   ! StC type and field index
+            p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z,b)
             p%Jac_x_indx(index_next+1:index_next+8,3) =  j                       ! Instance
             InitOut%LinNames_x(index_next+1) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%NStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Nacelle StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%NStC(j)%StC_x(3,1)
@@ -835,9 +839,9 @@ contains
       if (p%NumTStC > 0) then
          do j=1,p%NumTStC
             p%Jac_Idx_TStC_x(1,j) = index_next+1  ! Start index of TStC in x
-            p%Jac_x_indx(index_next+1:index_next+6,1) =  (/13,14,15,16,17,18/)   ! StC type and field index
-            p%Jac_x_indx(index_next+1:index_next+6,2) =  (/ 1, 2, 3, 1, 2, 3/)   ! component (x,y,z)
-            p%Jac_x_indx(index_next+1:index_next+6,3) =  j                       ! Instance
+            p%Jac_x_indx(index_next+1:index_next+8,1) =  (/17,18,19,20,21,22,23,24/)   ! StC type and field index
+            p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z,b)
+            p%Jac_x_indx(index_next+1:index_next+8,3) =  j                       ! Instance
             InitOut%LinNames_x(index_next+1) = 'Tower StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%TStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Tower StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%TStC(j)%StC_x(3,1)
             InitOut%LinNames_x(index_next+3) = 'Tower StC '//trim(num2lstr(j))//' local displacement state Z  m';       ! z      x%TStC(j)%StC_x(5,1)
@@ -851,14 +855,13 @@ contains
          enddo
       endif
       
-      ! Changes made here ==================================================================================================
       ! Substructure StC -- displacement state
       if (p%NumSStC > 0) then
          do j=1,p%NumSStC
             p%Jac_Idx_SStC_x(1,j) = index_next+1  ! Start index of SStC in x
-            p%Jac_x_indx(index_next+1:index_next+6,1) =  (/19,20,21,22,23,24/)   ! StC type and field index
-            p%Jac_x_indx(index_next+1:index_next+6,2) =  (/ 1, 2, 3, 1, 2, 3/)   ! component (x,y,z)
-            p%Jac_x_indx(index_next+1:index_next+6,3) =  j                       ! Instance
+            p%Jac_x_indx(index_next+1:index_next+8,1) =  (/25,26,27,28,29,30,31,32/)   ! StC type and field index
+            p%Jac_x_indx(index_next+1:index_next+8,2) =  (/ 1, 2, 3, 4, 1, 2, 3, 4/)   ! component (x,y,z)
+            p%Jac_x_indx(index_next+1:index_next+8,3) =  j                       ! Instance
             InitOut%LinNames_x(index_next+1) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state X  m';       ! x      x%SStC(j)%StC_x(1,1)
             InitOut%LinNames_x(index_next+2) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state Y  m';       ! y      x%SStC(j)%StC_x(3,1)
             InitOut%LinNames_x(index_next+3) = 'Substructure StC '//trim(num2lstr(j))//' local displacement state Z  m';       ! z      x%SStC(j)%StC_x(5,1)
@@ -2244,7 +2247,9 @@ SUBROUTINE SrvD_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg
    !...............................................................................................................................   
    ! Calculate the StC control chan for t_next, and save that in temporary.
    if ( p%NumStC_Control > 0 ) then
-      call AllocAry(StC_CmdStiff, 3, p%NumStC_Control, 'StC_CmdStiff', ErrStat2, ErrMsg2 );  if (Failed()) return;
+       !Changes made here ==================================================================================================
+      call AllocAry(StC_CmdStiff, 4, p%NumStC_Control, 'StC_CmdStiff', ErrStat2, ErrMsg2 );  if (Failed()) return;
+      !Changes made here ==================================================================================================
       call AllocAry(StC_CmdDamp,  3, p%NumStC_Control, 'StC_CmdDamp' , ErrStat2, ErrMsg2 );  if (Failed()) return;
       call AllocAry(StC_CmdBrake, 3, p%NumStC_Control, 'StC_CmdBrake', ErrStat2, ErrMsg2 );  if (Failed()) return;
       call AllocAry(StC_CmdForce, 3, p%NumStC_Control, 'StC_CmdForce', ErrStat2, ErrMsg2 );  if (Failed()) return;
@@ -2260,7 +2265,7 @@ SUBROUTINE SrvD_CalcOutput( t, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrMsg
       ! Set StC control channels
       call SetStCInput_CtrlChans(m%u_BStC(1,j))
       ! call Calc
-      CALL StC_CalcOutpu( t, m%u_BStC(1,j), p%BStC(j), x%BStC(j), xd%BStC(j), z%BStC(j), OtherState%BStC(j), m%y_BStC(j), m%BStC(j), ErrStat2, ErrMsg2 )
+      CALL StC_CalcOutput( t, m%u_BStC(1,j), p%BStC(j), x%BStC(j), xd%BStC(j), z%BStC(j), OtherState%BStC(j), m%y_BStC(j), m%BStC(j), ErrStat2, ErrMsg2 )
          if (Failed()) return;
       ! Set BStC outputs
       do k=1,p%NumBl
@@ -3355,6 +3360,7 @@ subroutine SrvD_Perturb_x( p, n, perturb_sign, x, dx )
    dx = p%dx(  p%Jac_x_indx(n,1) )
    ! determine which mesh we're trying to perturb and perturb the input:
    select case( p%Jac_x_indx(n,1) )    ! StC+field index
+       !Changes made here ==================================================================================================
       !-------------------------------
       !  1:8  --> x%BStC(instance)%StC_x
       case ( 1)   ! x
@@ -3410,7 +3416,6 @@ subroutine SrvD_Perturb_x( p, n, perturb_sign, x, dx )
       case (24)   ! b-dot
          x%TStC(instance)%StC_x(8,1) = x%TStC(instance)%StC_x(8,1) + dx * perturb_sign
       !-------------------------------
-      ! Changes made here ==================================================================================================
       ! 25:32 --> x%SStC(instance)%StC_x
       case (25)   ! x
          x%SStC(instance)%StC_x(1,1) = x%SStC(instance)%StC_x(1,1) + dx * perturb_sign
@@ -3500,6 +3505,7 @@ subroutine Compute_dX( p, x_p, x_m, delta_p, delta_m, dX )
    integer(IntKi)                                 :: i,j,k     ! generic counters
    integer(IntKi)                                 :: indx_prev ! index indicating index in dX before this one to be filled
 
+   !Changes made here ======================================================================================================
    ! StC related outputs
    if (p%NumBStC > 0) then
       do j=1,p%NumBStC
@@ -3545,7 +3551,6 @@ subroutine Compute_dX( p, x_p, x_m, delta_p, delta_m, dX )
          indx_prev = indx_prev + 8
       enddo
    endif
-   ! Changes made here =====================================================================================================
    if (p%NumSStC > 0) then
       do j=1,p%NumSStC
          indx_prev = p%Jac_Idx_SStC_x(1,j)-1
@@ -4320,16 +4325,18 @@ CONTAINS
    subroutine Get_u_op()
       integer(IntKi)    :: nu,i,j,index_next
 
+      !Changes made here ==================================================================================================
       if (.not. allocated(u_op)) then
             ! our operating point includes DCM (orientation) matrices, not just small angles like the perturbation matrices do
          nu = p%Jac_nu                 &
-            + p%NumBStC  * 6 * p%NumBl &  ! Jac_nu has 3 for Orientation, but we need 9 at each BStC instance on each blade
-            + p%NumNStC  * 6           &  ! Jac_nu has 3 for Orientation, but we need 9 at each NStC instance
-            + p%NumTStC  * 6           &  ! Jac_nu has 3 for Orientation, but we need 9 at each TStC instance
-            + p%NumSStC  * 6              ! Jac_nu has 3 for Orientation, but we need 9 at each SStC instance
+            + p%NumBStC  * 8 * p%NumBl &  ! Jac_nu has 3 for Orientation, but we need 9 at each BStC instance on each blade
+            + p%NumNStC  * 8           &  ! Jac_nu has 3 for Orientation, but we need 9 at each NStC instance
+            + p%NumTStC  * 8           &  ! Jac_nu has 3 for Orientation, but we need 9 at each TStC instance
+            + p%NumSStC  * 8              ! Jac_nu has 3 for Orientation, but we need 9 at each SStC instance
          CALL AllocAry( u_op, nu, 'u_op', ErrStat2, ErrMsg2 )
          if (Failed())  return;
       end if
+      !Changes made here ==================================================================================================
 
       index_next=1
       ! Fixed inputs
@@ -4400,6 +4407,7 @@ CONTAINS
    subroutine Get_x_op()
       integer(IntKi)    :: i,j,k,idx
 
+      !Changes made here ==================================================================================================
       if (.not. allocated(x_op)) then
          CALL AllocAry( x_op, p%Jac_nx, 'x_op', ErrStat2, ErrMsg2 )
          if (Failed())  return;
@@ -4440,7 +4448,6 @@ CONTAINS
          x_op(idx+8) = x%TStC(j)%StC_x(8,1)       !  db/dt --> x%TStC(j)%StC_x(8,1)
          idx = idx + 8
       enddo
-      ! Changes made here ==================================================================================================
       do j=1,p%NumSStC     ! Substructure StC -- displacement and velocity state
          x_op(idx+1) = x%SStC(j)%StC_x(1,1)       !  x     --> x%SStC(j)%StC_x(1,1)
          x_op(idx+2) = x%SStC(j)%StC_x(3,1)       !  y     --> x%SStC(j)%StC_x(3,1)
@@ -4450,7 +4457,7 @@ CONTAINS
          x_op(idx+6) = x%SStC(j)%StC_x(4,1)       !  dy/dt --> x%SStC(j)%StC_x(4,1)
          x_op(idx+7) = x%SStC(j)%StC_x(6,1)       !  dz/dt --> x%SStC(j)%StC_x(6,1)
          x_op(idx+8) = x%SStC(j)%StC_x(8,1)       !  db/dt --> x%SStC(j)%StC_x(8,1)
-         idx = idx + 6
+         idx = idx + 8
       enddo
       ! Changes made above =================================================================================================
    end subroutine Get_x_op

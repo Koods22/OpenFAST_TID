@@ -157,10 +157,12 @@ typedef	^		^				ReKi			StC_Z_PreLd	-	-	-	"StC_Z spring preload"	N
 typedef	^		^				ReKi			M_X		-	-	-	"StC mass"	kg
 typedef	^		^				ReKi			M_Y		-	-	-	"StC mass"	kg
 typedef	^		^				ReKi			M_Z		-	-	-	"StC mass"	kg
+typedef	^		^				ReKi			M_b		-	-	-	"StC mass"	kg
 typedef	^		^				ReKi			M_XY		-	-	-	"StCXY mass"	kg
 typedef	^		^				ReKi			K_X		-	-	-	"StC stiffness"	"N/m"
 typedef	^		^				ReKi			K_Y		-	-	-	"StC stiffness"	"N/m"
 typedef	^		^				ReKi			K_Z		-	-	-	"StC stiffness"	"N/m"
+typedef	^		^				ReKi			K_b		-	-	-	"StC stiffness"	"N/m"
 typedef	^		^				ReKi			C_X		-	-	-	"StC damping"	"N/(m/s)"
 typedef	^		^				ReKi			C_Y		-	-	-	"StC damping"	"N/(m/s)"
 typedef	^		^				ReKi			C_Z		-	-	-	"StC damping"	"N/(m/s)"

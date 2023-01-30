@@ -329,7 +329,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       ! Initialize the input and output arrays for control channels
       !     NOTE: these will get resized later in ServoDyn!!!!
    if (maxval(p%StC_CChan) > 0) then
-      call AllocAry( u%CmdStiff, 3, maxval(p%StC_CChan), 'u%CmdStiff', ErrStat2, ErrMsg2 )
+      call AllocAry( u%CmdStiff, 4, maxval(p%StC_CChan), 'u%CmdStiff', ErrStat2, ErrMsg2 )
          if (Failed())  return;
       call AllocAry( u%CmdDamp,  3, maxval(p%StC_CChan), 'u%CmdDamp',  ErrStat2, ErrMsg2 )
          if (Failed())  return;
@@ -337,9 +337,9 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
          if (Failed())  return;
       call AllocAry( u%CmdForce, 3, maxval(p%StC_CChan), 'u%CmdForce', ErrStat2, ErrMsg2 )
          if (Failed())  return;
-      call AllocAry( y%MeasDisp, 3, maxval(p%StC_CChan), 'y%MeasDisp', ErrStat2, ErrMsg2 )
-         if (Failed())  return;
-      call AllocAry( y%MeasVel,  3, maxval(p%StC_CChan), 'y%MeasVel',  ErrStat2, ErrMsg2 )
+      call AllocAry( y%MeasDisp, 4, maxval(p%StC_CChan), 'y%MeasDisp', ErrStat2, ErrMsg2 )
+         if (Failed())  return
+      call AllocAry( y%MeasVel,  4, maxval(p%StC_CChan), 'y%MeasVel',  ErrStat2, ErrMsg2 )
          if (Failed())  return;
       ! Initialize to zero (if we asked for channel 9, the first 8 channel entries are zero)
       u%CmdStiff  =  0.0_ReKi
@@ -408,7 +408,7 @@ CONTAINS
      
       
       ! Set spring constants to value from input file
-      call AllocAry(m%K      , 3, p%NumMeshPts, 'K'      , ErrStat, ErrMsg);  if (ErrStat >= AbortErrLev) return
+      call AllocAry(m%K      , 4, p%NumMeshPts, 'K'      , ErrStat, ErrMsg);  if (ErrStat >= AbortErrLev) return
       do i_pt=1,p%NumMeshPts
          m%K(1,i_pt) = p%K_X
          m%K(2,i_pt) = p%K_Y
@@ -863,7 +863,6 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%M_P(2,i_pt) =   F_XY_P(3) * x%StC_x(1,i_pt)
             m%M_P(3,i_pt) = - F_XY_P(1) * x%StC_x(3,i_pt) + F_XY_P(2) * x%StC_x(1,i_pt)
 
-
             ! forces and moments in global coordinates
             y%Mesh(i_pt)%Force(:,1) =  real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)),m%F_P(1:3,i_pt)),ReKi)
             y%Mesh(i_pt)%Moment(:,1) = real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)),m%M_P(1:3,i_pt)),ReKi)
@@ -963,7 +962,6 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%M_P(1,i_pt) =  F_y_tlcd_WR_N*((p%L_X-p%B_X)/2+x%StC_x(1,i_pt)) + F_y_tlcd_WL_N*((p%L_X-p%B_X)/2-x%StC_x(1,i_pt)) - F_y_otlcd_WB_N*((p%L_Y-p%B_Y)/2+x%StC_x(3,i_pt)) - F_y_otlcd_WF_N*((p%L_Y-p%B_Y)/2-x%StC_x(3,i_pt))
             m%M_P(2,i_pt) = -F_x_tlcd_WR_N*((p%L_X-p%B_X)/2+x%StC_x(1,i_pt)) - F_x_tlcd_WL_N*((p%L_X-p%B_X)/2-x%StC_x(1,i_pt)) + F_x_otlcd_WB_N*((p%L_Y-p%B_Y)/2+x%StC_x(3,i_pt)) + F_x_otlcd_WF_N*((p%L_Y-p%B_Y)/2-x%StC_x(3,i_pt))
             m%M_P(3,i_pt) =  F_y_tlcd_WR_N*p%B_X*.5 - F_y_tlcd_WL_N*p%B_X*.5 + F_x_otlcd_WB_N*p%B_Y*.5 - F_x_otlcd_WF_N*p%B_Y*.5
-
 
             ! forces and moments in global coordinates
             y%Mesh(i_pt)%Force(:,1)  = real(matmul(transpose(u%Mesh(i_pt)%Orientation(:,:,1)), m%F_P(1:3,i_pt)),ReKi)
@@ -1069,7 +1067,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
       INTEGER(IntKi),                INTENT(  OUT)  :: ErrStat     !< Error status of the operation
       CHARACTER(*),                  INTENT(  OUT)  :: ErrMsg      !< Error message if ErrStat /= ErrID_None
 
-      REAL(ReKi), dimension(3,p%NumMeshPts)           :: K          ! tuned mass damper stiffness
+      REAL(ReKi), dimension(4,p%NumMeshPts)           :: K          ! tuned mass damper stiffness
       Real(ReKi)                                      :: denom      ! denominator for omni-direction factors
       integer(IntKi)                                  :: i_pt       ! Generic counter for mesh point
 
@@ -1187,7 +1185,17 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                dxdt%StC_x(5,i_pt) = x%StC_x(6,i_pt)
             enddo
          END IF
-
+         ! Changes made here ===============================================================================================
+         If (p%StC_DOF_MODE == DOFMode_TID .AND. .NOT. p%StC_Z_DOF) THEN            ! Calculate for the TID
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(7,i_pt) = 0.0_ReKi
+            enddo
+         ELSE
+            do i_pt=1,p%NumMeshPts
+               dxdt%StC_x(7,i_pt) = x%StC_x(8,i_pt)
+            enddo
+         END IF
+         
          if ( .not. (p%StC_DOF_MODE == DOFMode_Indept .AND. p%StC_Z_DOF)) then      ! z not used in any other configuration
             do i_pt=1,p%NumMeshPts
                dxdt%StC_x(5,i_pt) = 0.0_ReKi
@@ -1356,7 +1364,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                dxdt%StC_x(8,i_pt) = - K(3,i_pt) / p%M_Z * x%StC_x(5, i_pt)                                           &
                                     + m%C_ctrl(3,i_pt) / p%M_b * x%StC_x(6,i_pt)                                     &
                                     - ( p%M_Z + p%M_b ) * K(4,i_pt) / ( p%M_Z * p%M_b ) * x%StC_x(7, i_pt)           &
-                                    - m%C_ctrl(3,i_pt) * x%StC_x(8,i_pt) - m%rddot_P(3,i_pt)
+                                    - m%C_ctrl(3,i_pt) / p%M_b * x%StC_x(8,i_pt) - m%rddot_P(3,i_pt)
             enddo
          ELSE
             do i_pt=1,p%NumMeshPts
@@ -1744,7 +1752,7 @@ SUBROUTINE StC_ActiveCtrl_StiffDamp(u,p,K_ctrl,C_ctrl,C_Brake,F_ctrl)
    integer(IntKi)                                        :: i_pt           ! counter for mesh points
    do i_pt=1,p%NumMeshPts
       if (p%StC_CChan(i_pt) > 0) then     ! This index should have been checked at init, so won't check bounds here
-         K_ctrl( 1:3,i_pt) = u%CmdStiff(1:3,p%StC_CChan(i_pt))
+         K_ctrl( 1:4,i_pt) = u%CmdStiff(1:4,p%StC_CChan(i_pt))
          C_ctrl( 1:3,i_pt) = u%CmdDamp( 1:3,p%StC_CChan(i_pt))
          C_Brake(1:3,i_pt) = u%CmdBrake(1:3,p%StC_CChan(i_pt))
          F_ctrl(1:3,i_pt)  = u%CmdForce(1:3,p%StC_CChan(i_pt))
@@ -1896,7 +1904,8 @@ SUBROUTINE StC_ParseInputFileInfo( PriPath, InputFile, RootName, NumMeshPts, Fil
       !                       1: StC_X_DOF, StC_Y_DOF, and/or StC_Z_DOF (three independent StC DOFs);
       !                       2: StC_XY_DOF (Omni-Directional StC);
       !                       3: TLCD;
-      !                       4: Prescribed force/moment time series}
+      !                       4: Prescribed force/moment time series;
+      !                       5: TID}
    call ParseVar( FileInfo_In, Curline, 'StC_DOF_MODE', InputFileData%StC_DOF_MODE, ErrStat2, ErrMsg2, UnEcho )
       If (Failed()) return;
       !  DOF on or off for StC X (flag) [Used only when StC_DOF_MODE=1]
@@ -2096,7 +2105,7 @@ SUBROUTINE StC_ParseInputFileInfo( PriPath, InputFile, RootName, NumMeshPts, Fil
    call ParseVar( FileInfo_In, Curline, 'StC_CMODE', InputFileData%StC_CMODE, ErrStat2, ErrMsg2 )
       If (Failed()) return;
    ! Control channels -- there may be multiple if there are multiple StC mesh points (blade TMD case), but we also allow a single
-      ! StC_CChan     - Control channel group for stiffness and damping (StC_[XYZ]_K, StC_[XYZ]_C, and StC_[XYZ]_Brake) [used only when StC_CMODE=4 or StC_CMODE=5]
+      ! StC_CChan     - Control channel group for stiffness and damping (StC_[XYZb]_K, StC_[XYZ]_C, and StC_[XYZ]_Brake) [used only when StC_CMODE=4 or StC_CMODE=5]
    allocate( InputFileData%StC_CChan(NumMeshPts), STAT=ErrStat2 )    ! Blade TMD will possibly have independent TMD's for each instance
       if (ErrStat2 /= ErrID_None) ErrMsg2="Error allocating InputFileData%StC_CChan(NumMeshPts)"
       If (Failed()) return;
@@ -2312,6 +2321,11 @@ subroutine    StC_ValidatePrimaryData( InputFileData, InitInp, ErrStat, ErrMsg )
       call SetErrStat(ErrID_Fatal,'StC_Z_M must be > 0 when StC_Z_DOF is enabled', ErrStat,ErrMsg,RoutineName)
    if (InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_Z_K <= 0.0_ReKi) )    & 
       call SetErrStat(ErrID_Fatal,'StC_Z_K must be > 0 when StC_Z_DOF is enabled', ErrStat,ErrMsg,RoutineName)
+   
+   if (InputFileData%StC_DOF_MODE == DOFMode_TID .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_b_M <= 0.0_ReKi) )    & 
+      call SetErrStat(ErrID_Fatal,'StC_b_M must be > 0 when DOFMode_TID is enabled', ErrStat,ErrMsg,RoutineName)
+   if (InputFileData%StC_DOF_MODE == DOFMode_TID .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_b_K <= 0.0_ReKi) )    & 
+      call SetErrStat(ErrID_Fatal,'StC_b_K must be > 0 when DOFMode_TID is enabled', ErrStat,ErrMsg,RoutineName)
 
    if (InputFileData%StC_DOF_MODE == DOFMode_Omni .and. (InputFileData%StC_XY_M <= 0.0_ReKi) )    & 
       call SetErrStat(ErrID_Fatal,'StC_XY_M must be > 0 when DOF mode 2 (omni-directional) is used', ErrStat,ErrMsg,RoutineName)

@@ -191,10 +191,12 @@ IMPLICIT NONE
     REAL(ReKi)  :: M_X      !< StC mass [kg]
     REAL(ReKi)  :: M_Y      !< StC mass [kg]
     REAL(ReKi)  :: M_Z      !< StC mass [kg]
+    REAL(ReKi)  :: M_b      !< StC mass [kg]
     REAL(ReKi)  :: M_XY      !< StCXY mass [kg]
     REAL(ReKi)  :: K_X      !< StC stiffness [N/m]
     REAL(ReKi)  :: K_Y      !< StC stiffness [N/m]
     REAL(ReKi)  :: K_Z      !< StC stiffness [N/m]
+    REAL(ReKi)  :: K_b      !< StC stiffness [N/m]
     REAL(ReKi)  :: C_X      !< StC damping [N/(m/s)]
     REAL(ReKi)  :: C_Y      !< StC damping [N/(m/s)]
     REAL(ReKi)  :: C_Z      !< StC damping [N/(m/s)]
@@ -4184,10 +4186,12 @@ ENDIF
     DstParamData%M_X = SrcParamData%M_X
     DstParamData%M_Y = SrcParamData%M_Y
     DstParamData%M_Z = SrcParamData%M_Z
+    DstParamData%M_b = SrcParamData%M_b
     DstParamData%M_XY = SrcParamData%M_XY
     DstParamData%K_X = SrcParamData%K_X
     DstParamData%K_Y = SrcParamData%K_Y
     DstParamData%K_Z = SrcParamData%K_Z
+    DstParamData%K_b = SrcParamData%K_b
     DstParamData%C_X = SrcParamData%C_X
     DstParamData%C_Y = SrcParamData%C_Y
     DstParamData%C_Z = SrcParamData%C_Z
@@ -4329,10 +4333,12 @@ ENDIF
       Re_BufSz   = Re_BufSz   + 1  ! M_X
       Re_BufSz   = Re_BufSz   + 1  ! M_Y
       Re_BufSz   = Re_BufSz   + 1  ! M_Z
+      Re_BufSz   = Re_BufSz   + 1  ! M_b
       Re_BufSz   = Re_BufSz   + 1  ! M_XY
       Re_BufSz   = Re_BufSz   + 1  ! K_X
       Re_BufSz   = Re_BufSz   + 1  ! K_Y
       Re_BufSz   = Re_BufSz   + 1  ! K_Z
+      Re_BufSz   = Re_BufSz   + 1  ! K_b
       Re_BufSz   = Re_BufSz   + 1  ! C_X
       Re_BufSz   = Re_BufSz   + 1  ! C_Y
       Re_BufSz   = Re_BufSz   + 1  ! C_Z
@@ -4431,6 +4437,8 @@ ENDIF
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%M_Z
     Re_Xferred = Re_Xferred + 1
+    ReKiBuf(Re_Xferred) = InData%M_b
+    Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%M_XY
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%K_X
@@ -4438,6 +4446,8 @@ ENDIF
     ReKiBuf(Re_Xferred) = InData%K_Y
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%K_Z
+    Re_Xferred = Re_Xferred + 1
+    ReKiBuf(Re_Xferred) = InData%K_b
     Re_Xferred = Re_Xferred + 1
     ReKiBuf(Re_Xferred) = InData%C_X
     Re_Xferred = Re_Xferred + 1
@@ -4624,6 +4634,8 @@ ENDIF
     Re_Xferred = Re_Xferred + 1
     OutData%M_Z = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
+    OutData%M_b = ReKiBuf(Re_Xferred)
+    Re_Xferred = Re_Xferred + 1
     OutData%M_XY = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%K_X = ReKiBuf(Re_Xferred)
@@ -4631,6 +4643,8 @@ ENDIF
     OutData%K_Y = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%K_Z = ReKiBuf(Re_Xferred)
+    Re_Xferred = Re_Xferred + 1
+    OutData%K_b = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
     OutData%C_X = ReKiBuf(Re_Xferred)
     Re_Xferred = Re_Xferred + 1
