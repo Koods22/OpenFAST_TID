@@ -829,7 +829,8 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
             m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
             m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
-
+            print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
             m%M_P(2,i_pt) =    F_X_P(3)  * x%StC_x(1,i_pt)  -  F_Z_P(1) * x%StC_x(5,i_pt)
             m%M_P(3,i_pt) =  - F_X_P(2)  * x%StC_x(1,i_pt)  +  F_Y_P(1) * x%StC_x(3,i_pt)    ! NOTE signs match document, but are changed from prior value
@@ -1009,6 +1010,8 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
             m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
             m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%K(4,i_pt) * x%StC_x(7,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
+            print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            
             
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
             m%M_P(2,i_pt) =    F_X_P(3)  * x%StC_x(1,i_pt)  -  F_Z_P(1) * x%StC_x(5,i_pt)
@@ -1176,7 +1179,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             enddo
          END IF
 
-         IF (p%StC_DOF_MODE == DOFMode_Indept .AND. .NOT. p%StC_Z_DOF) THEN
+         IF ((p%StC_DOF_MODE == DOFMode_Indept .OR. p%StC_DOF_MODE == DOFMode_TID) .AND. .NOT. p%StC_Z_DOF) THEN
             do i_pt=1,p%NumMeshPts
                dxdt%StC_x(5,i_pt) = 0.0_ReKi
             enddo
@@ -1271,6 +1274,8 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                dxdt%StC_x(6,i_pt) = 0.0_ReKi
             enddo
          END IF
+         
+         dxdt%StC_x(8,i_pt) = 0.0_ReKi
 
       ELSE IF (p%StC_DOF_MODE == DOFMode_Omni) THEN   ! Only includes X and Y
                ! Compute the first time derivatives of the continuous states of Omnidirectional tuned masse damper mode by sm 2015-0904
@@ -1324,6 +1329,8 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             dxdt%StC_x(4,i_pt) = 0
             dxdt%StC_x(5,i_pt) = 0
             dxdt%StC_x(6,i_pt) = 0
+            dxdt%StC_x(7,i_pt) = 0
+            dxdt%StC_x(7,i_pt) = 0
          enddo
          return
          
