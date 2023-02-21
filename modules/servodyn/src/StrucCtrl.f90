@@ -217,8 +217,8 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
 ! Changes were made above ====================================================================================================
 
    ! set positions and orientations for tuned mass dampers's
-   call AllocAry(InitOut%RelPosition,  3, p%NumMeshPts, 'RelPosition',     ErrStat2,ErrMsg2);  if (Failed())  return;
-   call AllocAry(RefPosGlobal,         3, p%NumMeshPts, 'RefPosGlobal',    ErrStat2,ErrMsg2);  if (Failed())  return;
+   call AllocAry(InitOut%RelPosition,  4, p%NumMeshPts, 'RelPosition',     ErrStat2,ErrMsg2);  if (Failed())  return;
+   call AllocAry(RefPosGlobal,         4, p%NumMeshPts, 'RefPosGlobal',    ErrStat2,ErrMsg2);  if (Failed())  return;
 
    ! Set the initial positions and orientations for each point (Ref coords)
    do i_pt = 1,p%NumMeshPts
@@ -829,7 +829,8 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
             m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
             m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%C_ctrl(3,i_pt) * x%StC_x(6,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
-            print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            !print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            !print * , m%F_P(3,i_pt)
             
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
             m%M_P(2,i_pt) =    F_X_P(3)  * x%StC_x(1,i_pt)  -  F_Z_P(1) * x%StC_x(5,i_pt)
@@ -1010,7 +1011,8 @@ SUBROUTINE StC_CalcOutput( Time, u, p, x, xd, z, OtherState, y, m, ErrStat, ErrM
             m%F_P(1,i_pt) =  m%K(1,i_pt) * x%StC_x(1,i_pt) + m%C_ctrl(1,i_pt) * x%StC_x(2,i_pt) + m%C_Brake(1,i_pt) * x%StC_x(2,i_pt) - m%F_stop(1,i_pt) - m%F_ext(1,i_pt) - m%F_fr(1,i_pt) - F_Y_P(1) - F_Z_P(1) + m%F_table(1,i_pt)
             m%F_P(2,i_pt) =  m%K(2,i_pt) * x%StC_x(3,i_pt) + m%C_ctrl(2,i_pt) * x%StC_x(4,i_pt) + m%C_Brake(2,i_pt) * x%StC_x(4,i_pt) - m%F_stop(2,i_pt) - m%F_ext(2,i_pt) - m%F_fr(2,i_pt) - F_X_P(2) - F_Z_P(2) + m%F_table(2,i_pt)
             m%F_P(3,i_pt) =  m%K(3,i_pt) * x%StC_x(5,i_pt) + m%K(4,i_pt) * x%StC_x(7,i_pt) + m%C_Brake(3,i_pt) * x%StC_x(6,i_pt) - m%F_stop(3,i_pt) - m%F_ext(3,i_pt) - m%F_fr(3,i_pt) - F_X_P(3) - F_Y_P(3) + m%F_table(3,i_pt) - p%StC_Z_PreLd
-            print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            !print * , x%StC_x(5,i_pt), x%StC_x(6,i_pt), x%StC_x(7,i_pt), x%StC_x(8,i_pt)
+            !print * , m%F_P(3,i_pt)
             
             
             m%M_P(1,i_pt) =  - F_Y_P(3)  * x%StC_x(3,i_pt)  +  F_Z_P(2) * x%StC_x(5,i_pt)
@@ -1083,7 +1085,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
       ErrMsg  = ""
 
 
-      call AllocAry(dxdt%StC_x,6, p%NumMeshPts,'dxdt%StC_x',  ErrStat2,ErrMsg2); if (Failed()) return;
+      call AllocAry(dxdt%StC_x,8, p%NumMeshPts,'dxdt%StC_x',  ErrStat2,ErrMsg2); if (Failed()) return;
 
          ! compute stop force (m%F_stop)
       IF (p%Use_F_TBL) THEN
@@ -1199,9 +1201,10 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
             enddo
          END IF
          
-         if ( .not. (p%StC_DOF_MODE == DOFMode_Indept .AND. p%StC_Z_DOF)) then      ! z not used in any other configuration
+         if ( .not. ((p%StC_DOF_MODE == DOFMode_Indept .OR. p%StC_DOF_MODE == DOFMode_TID) .AND. p%StC_Z_DOF)) then      ! z not used in any other configuration
             do i_pt=1,p%NumMeshPts
                dxdt%StC_x(5,i_pt) = 0.0_ReKi
+               dxdt%StC_x(7,i_pt) = 0.0_ReKi
             enddo
          endif
 
@@ -1274,8 +1277,9 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                dxdt%StC_x(6,i_pt) = 0.0_ReKi
             enddo
          END IF
-         
+         do i_pt=1,p%NumMeshPts
          dxdt%StC_x(8,i_pt) = 0.0_ReKi
+         enddo
 
       ELSE IF (p%StC_DOF_MODE == DOFMode_Omni) THEN   ! Only includes X and Y
                ! Compute the first time derivatives of the continuous states of Omnidirectional tuned masse damper mode by sm 2015-0904
@@ -1293,6 +1297,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                                 - ( m%omega_P(1,i_pt)*m%omega_P(2,i_pt) + m%alpha_P(3,i_pt) ) * x%StC_x(1,i_pt)      &
                                -2 * m%omega_P(3,i_pt) * x%StC_x(2,i_pt)
             dxdt%StC_x(6,i_pt) = 0.0_ReKi ! Z is off
+            dxdt%StC_x(8,i_pt) = 0.0_ReKi
          enddo
 
       ELSE IF (p%StC_DOF_MODE == DOFMode_TLCD) THEN !MEG & SP
@@ -1318,22 +1323,9 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                                 -.5*p%rho_Y*p%area_Y*p%headLossCoeff_Y*p%area_ratio_Y*p%area_ratio_Y*x%StC_x(4,i_pt)       &
                                        *ABS(x%StC_x(4,i_pt)))/(p%rho_Y*p%area_Y*(p%L_Y-p%B_Y+p%area_ratio_Y*p%B_Y))
             dxdt%StC_x(6,i_pt) = 0.0_ReKi ! Z is off
+            dxdt%StC_x(8,i_pt) = 0.0_ReKi
          enddo
 
-      ELSE IF ( p%StC_DOF_MODE == DOFMode_Prescribed ) THEN
-      ! if prescribed forces, there are no states to advance, so return
-         do i_pt=1,p%NumMeshPts
-            dxdt%StC_x(1,i_pt) = 0
-            dxdt%StC_x(2,i_pt) = 0
-            dxdt%StC_x(3,i_pt) = 0
-            dxdt%StC_x(4,i_pt) = 0
-            dxdt%StC_x(5,i_pt) = 0
-            dxdt%StC_x(6,i_pt) = 0
-            dxdt%StC_x(7,i_pt) = 0
-            dxdt%StC_x(7,i_pt) = 0
-         enddo
-         return
-         
          ! Changes made here ===============================================================================================
                ! Compute the first time derivatives, dxdt%StC_x(2), dxdt%StC_x(4), and dxdt%StC_x(6), of the continuous states,:
       ELSE IF (p%StC_DOF_MODE == DOFMode_TID) THEN
@@ -1372,6 +1364,7 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                                     + m%C_ctrl(3,i_pt) / p%M_b * x%StC_x(6,i_pt)                                     &
                                     - ( p%M_Z + p%M_b ) * K(4,i_pt) / ( p%M_Z * p%M_b ) * x%StC_x(7, i_pt)           &
                                     - m%C_ctrl(3,i_pt) / p%M_b * x%StC_x(8,i_pt) - m%rddot_P(3,i_pt)
+               !print * , dxdt%StC_x(8,i_pt)
             enddo
          ELSE
             do i_pt=1,p%NumMeshPts
@@ -1379,9 +1372,26 @@ SUBROUTINE StC_CalcContStateDeriv( Time, u, p, x, xd, z, OtherState, m, dxdt, Er
                dxdt%StC_x(8,i_pt) = 0.0_ReKi
             enddo
          END IF
+       
+         
          ! Changes made above ==============================================================================================
+         
+      ELSE IF ( p%StC_DOF_MODE == DOFMode_Prescribed ) THEN
+      ! if prescribed forces, there are no states to advance, so return
+         do i_pt=1,p%NumMeshPts
+            dxdt%StC_x(1,i_pt) = 0
+            dxdt%StC_x(2,i_pt) = 0
+            dxdt%StC_x(3,i_pt) = 0
+            dxdt%StC_x(4,i_pt) = 0
+            dxdt%StC_x(5,i_pt) = 0
+            dxdt%StC_x(6,i_pt) = 0
+            dxdt%StC_x(7,i_pt) = 0
+            dxdt%StC_x(8,i_pt) = 0
+         enddo
+         return
+         
       END IF
-
+      
       call CleanUp()
       return
 
@@ -2324,9 +2334,9 @@ subroutine    StC_ValidatePrimaryData( InputFileData, InitInp, ErrStat, ErrMsg )
    if (InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Y_DOF .and. (InputFileData%StC_Y_K <= 0.0_ReKi) )    & 
       call SetErrStat(ErrID_Fatal,'StC_Y_K must be > 0 when StC_Y_DOF is enabled', ErrStat,ErrMsg,RoutineName)
 
-   if (InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_Z_M <= 0.0_ReKi) )    & 
+   if ((InputFileData%StC_DOF_MODE == DOFMode_Indept .or. InputFileData%StC_DOF_MODE == DOFMode_TID) .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_Z_M <= 0.0_ReKi) )    & 
       call SetErrStat(ErrID_Fatal,'StC_Z_M must be > 0 when StC_Z_DOF is enabled', ErrStat,ErrMsg,RoutineName)
-   if (InputFileData%StC_DOF_MODE == DOFMode_Indept .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_Z_K <= 0.0_ReKi) )    & 
+   if ((InputFileData%StC_DOF_MODE == DOFMode_Indept .or. InputFileData%StC_DOF_MODE == DOFMode_TID) .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_Z_K <= 0.0_ReKi) )    & 
       call SetErrStat(ErrID_Fatal,'StC_Z_K must be > 0 when StC_Z_DOF is enabled', ErrStat,ErrMsg,RoutineName)
    
    if (InputFileData%StC_DOF_MODE == DOFMode_TID .and. InputFileData%StC_Z_DOF .and. (InputFileData%StC_b_M <= 0.0_ReKi) )    & 
@@ -2397,7 +2407,7 @@ SUBROUTINE StC_SetParameters( InputFileData, InitInp, p, Interval, ErrStat, ErrM
 
    p%StC_X_DOF = InputFileData%StC_X_DOF
    p%StC_Y_DOF = InputFileData%StC_Y_DOF
-   if (p%StC_DOF_MODE == DOFMode_Indept) then
+   if (p%StC_DOF_MODE == DOFMode_Indept .or. p%StC_DOF_MODE == DOFMode_TID) then
       p%StC_Z_DOF = InputFileData%StC_Z_DOF
    else
       p%StC_Z_DOF = .false.
