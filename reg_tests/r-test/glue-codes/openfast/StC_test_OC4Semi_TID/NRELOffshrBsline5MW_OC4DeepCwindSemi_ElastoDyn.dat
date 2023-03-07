@@ -30,7 +30,7 @@ True          PtfmYDOF    - Platform yaw rotation DOF (flag)
           0   BlPitch(3)  - Blade 3 initial pitch (degrees) [unused for 2 blades]
           0   TeetDefl    - Initial or fixed teeter angle (degrees) [unused for 3 blades]
           0   Azimuth     - Initial azimuth angle for blade 1 (degrees)
-          9   RotSpeed    - Initial or fixed rotor speed (rpm)
+          0   RotSpeed    - Initial or fixed rotor speed (rpm)
           0   NacYaw      - Initial or fixed nacelle-yaw angle (degrees)
           0   TTDspFA     - Initial fore-aft tower-top displacement (meters)
           0   TTDspSS     - Initial side-to-side tower-top displacement (meters)
@@ -38,7 +38,7 @@ True          PtfmYDOF    - Platform yaw rotation DOF (flag)
           0   PtfmSway    - Initial or fixed horizontal sway translational displacement of platform (meters)
           0   PtfmHeave   - Initial or fixed vertical heave translational displacement of platform (meters)
           0   PtfmRoll    - Initial or fixed roll tilt rotational displacement of platform (degrees)
-          0   PtfmPitch   - Initial or fixed pitch tilt rotational displacement of platform (degrees)
+          5   PtfmPitch   - Initial or fixed pitch tilt rotational displacement of platform (degrees)
           0   PtfmYaw     - Initial or fixed yaw rotational displacement of platform (degrees)
 ---------------------- TURBINE CONFIGURATION -----------------------------------
           3   NumBl       - Number of blades (-)
@@ -134,26 +134,5 @@ True          TabDelim    - Use tab delimiters in text tabular output file? (fla
 "PtfmRoll"                - Platform rotational roll  displacement
 "PtfmPitch"               - Platform rotational pitch displacement
 "PtfmYaw"                 - Platform rotational yaw   displacement
-"RootFxc1"                - Out-of-plane shear force at the root of blade 1
-"RootFyc1"                - In-plane     shear force at the root of blade 1
-"RootFzc1"                - Axial              force at the root of blade 1
-"RootMxc1"                - In-plane     bending moment at the root of blade 1
-"RootMyc1"                - Out-of-plane bending moment at the root of blade 1
-"RootMzc1"                - Pitching             moment at the root of blade 1
-"RotTorq"                 - Rotor torque
-"LSSGagMya"               - Low-speed shaft 0- rotating bending moments at the main bearing
-"LSSGagMza"               - Low-speed shaft 90-rotating bending moments at the main bearing
-"YawBrFxp"                - Fore-aft     shear force at the top of the tower (not rotating with nacelle yaw)
-"YawBrFyp"                - Side-to-side shear force at the top of the tower (not rotating with nacelle yaw)
-"YawBrFzp"                - Vertical           force at the top of the tower (not rotating with nacelle yaw)
-"YawBrMxp"                - Side-to-side bending moment at the top of the tower (not rotating with nacelle yaw)
-"YawBrMyp"                - Fore-aft     bending moment at the top of the tower (not rotating with nacelle yaw)
-"YawBrMzp"                - Yaw                  moment at the top of the tower (not rotating with nacelle yaw)
-"TwrBsFxt"                - Fore-aft     shear force at the base of the tower (platform)
-"TwrBsFyt"                - Side-to-side shear force at the base of the tower (platform)
-"TwrBsFzt"                - Vertical           force at the base of the tower (platform)
-"TwrBsMxt"                - Side-to-side bending moment at the base of the tower (platform)
-"TwrBsMyt"                - Fore-aft     bending moment at the base of the tower (platform)
-"TwrBsMzt"                - Yaw                  moment at the base of the tower (platform)
 END of input file (the word "END" must appear in the first 3 columns of this last OutList line)
 ---------------------------------------------------------------------------------------

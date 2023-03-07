@@ -4,7 +4,7 @@ Input file for tuned mass damper, module by Matt Lackner, Meghan Glade, and Semy
 ---------------------- SIMULATION CONTROL --------------------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
  True            = Echo                
 ---------------------- StC DEGREES OF FREEDOM ----------------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
- 5               = StC_DOF_MODE        
+ 0               = StC_DOF_MODE        
  false           = StC_X_DOF           
  false           = StC_Y_DOF           
  true            = StC_Z_DOF           
@@ -27,16 +27,16 @@ Input file for tuned mass damper, module by Matt Lackner, Meghan Glade, and Semy
 ---------------------- StC MASS, STIFFNESS, & DAMPING ------------------------- [used only when StC_DOF_MODE=1 or 2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
  0               = StC_X_M             
  0               = StC_Y_M             
- 163963.5        = StC_Z_M             
- 4099.1          = StC_b_M             
+ 234540          = StC_Z_M             
+ 10232           = StC_b_M             
  0               = StC_XY_M            
  0               = StC_X_K             
  0               = StC_Y_K             
- 6422.85         = StC_Z_K             
- 160.57          = StC_b_K             
+ 18744           = StC_Z_K             
+ 896             = StC_b_K             
  0               = StC_X_C             
  0               = StC_Y_C             
- 25352.9         = StC_Z_C             
+ 864             = StC_Z_C             
  0               = StC_X_KS            
  0               = StC_Y_KS            
  1500            = StC_Z_KS            

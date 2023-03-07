@@ -536,80 +536,80 @@ MODULE ServoDyn_IO
    INTEGER(IntKi), PARAMETER      :: SStC1_YQD    = 446
    INTEGER(IntKi), PARAMETER      :: SStC1_ZQ     = 447
    INTEGER(IntKi), PARAMETER      :: SStC1_ZQD    = 448
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fxi    = 449
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fyi    = 450
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fzi    = 451
-   INTEGER(IntKi), PARAMETER      :: SStC1_Mxi    = 452
-   INTEGER(IntKi), PARAMETER      :: SStC1_Myi    = 453
-   INTEGER(IntKi), PARAMETER      :: SStC1_Mzi    = 454
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fxl    = 455
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fyl    = 456
-   INTEGER(IntKi), PARAMETER      :: SStC1_Fzl    = 457
-   INTEGER(IntKi), PARAMETER      :: SStC1_Mxl    = 458
-   INTEGER(IntKi), PARAMETER      :: SStC1_Myl    = 459
-   INTEGER(IntKi), PARAMETER      :: SStC1_Mzl    = 460
-   INTEGER(IntKi), PARAMETER      :: SStC2_XQ     = 461
-   INTEGER(IntKi), PARAMETER      :: SStC2_XQD    = 462
-   INTEGER(IntKi), PARAMETER      :: SStC2_YQ     = 463
-   INTEGER(IntKi), PARAMETER      :: SStC2_YQD    = 464
-   INTEGER(IntKi), PARAMETER      :: SStC2_ZQ     = 465
-   INTEGER(IntKi), PARAMETER      :: SStC2_ZQD    = 466
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fxi    = 467
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fyi    = 468
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fzi    = 469
-   INTEGER(IntKi), PARAMETER      :: SStC2_Mxi    = 470
-   INTEGER(IntKi), PARAMETER      :: SStC2_Myi    = 471
-   INTEGER(IntKi), PARAMETER      :: SStC2_Mzi    = 472
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fxl    = 473
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fyl    = 474
-   INTEGER(IntKi), PARAMETER      :: SStC2_Fzl    = 475
-   INTEGER(IntKi), PARAMETER      :: SStC2_Mxl    = 476
-   INTEGER(IntKi), PARAMETER      :: SStC2_Myl    = 477
-   INTEGER(IntKi), PARAMETER      :: SStC2_Mzl    = 478
-   INTEGER(IntKi), PARAMETER      :: SStC3_XQ     = 479
-   INTEGER(IntKi), PARAMETER      :: SStC3_XQD    = 480
-   INTEGER(IntKi), PARAMETER      :: SStC3_YQ     = 481
-   INTEGER(IntKi), PARAMETER      :: SStC3_YQD    = 482
-   INTEGER(IntKi), PARAMETER      :: SStC3_ZQ     = 483
-   INTEGER(IntKi), PARAMETER      :: SStC3_ZQD    = 484
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fxi    = 485
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fyi    = 486
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fzi    = 487
-   INTEGER(IntKi), PARAMETER      :: SStC3_Mxi    = 488
-   INTEGER(IntKi), PARAMETER      :: SStC3_Myi    = 489
-   INTEGER(IntKi), PARAMETER      :: SStC3_Mzi    = 490
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fxl    = 491
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fyl    = 492
-   INTEGER(IntKi), PARAMETER      :: SStC3_Fzl    = 493
-   INTEGER(IntKi), PARAMETER      :: SStC3_Mxl    = 494
-   INTEGER(IntKi), PARAMETER      :: SStC3_Myl    = 495
-   INTEGER(IntKi), PARAMETER      :: SStC3_Mzl    = 496
-   INTEGER(IntKi), PARAMETER      :: SStC4_XQ     = 497
-   INTEGER(IntKi), PARAMETER      :: SStC4_XQD    = 498
-   INTEGER(IntKi), PARAMETER      :: SStC4_YQ     = 499
-   INTEGER(IntKi), PARAMETER      :: SStC4_YQD    = 500
-   INTEGER(IntKi), PARAMETER      :: SStC4_ZQ     = 501
-   INTEGER(IntKi), PARAMETER      :: SStC4_ZQD    = 502
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fxi    = 503
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fyi    = 504
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fzi    = 505
-   INTEGER(IntKi), PARAMETER      :: SStC4_Mxi    = 506
-   INTEGER(IntKi), PARAMETER      :: SStC4_Myi    = 507
-   INTEGER(IntKi), PARAMETER      :: SStC4_Mzi    = 508
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fxl    = 509
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fyl    = 510
-   INTEGER(IntKi), PARAMETER      :: SStC4_Fzl    = 511
-   INTEGER(IntKi), PARAMETER      :: SStC4_Mxl    = 512
-   INTEGER(IntKi), PARAMETER      :: SStC4_Myl    = 513
-   INTEGER(IntKi), PARAMETER      :: SStC4_Mzl    = 514
-   INTEGER(IntKi), PARAMETER      :: SStC1_bQ     = 515
-   INTEGER(IntKi), PARAMETER      :: SStC1_bQD    = 516
-   INTEGER(IntKi), PARAMETER      :: SStC2_bQ     = 517
-   INTEGER(IntKi), PARAMETER      :: SStC2_bQD    = 518
-   INTEGER(IntKi), PARAMETER      :: SStC3_bQ     = 519
-   INTEGER(IntKi), PARAMETER      :: SStC3_bQD    = 520
-   INTEGER(IntKi), PARAMETER      :: SStC4_bQ     = 521
-   INTEGER(IntKi), PARAMETER      :: SStC4_bQD    = 522
+   INTEGER(IntKi), PARAMETER      :: SStC1_bQ     = 449
+   INTEGER(IntKi), PARAMETER      :: SStC1_bQD    = 450
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fxi    = 451
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fyi    = 452
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fzi    = 453
+   INTEGER(IntKi), PARAMETER      :: SStC1_Mxi    = 454
+   INTEGER(IntKi), PARAMETER      :: SStC1_Myi    = 455
+   INTEGER(IntKi), PARAMETER      :: SStC1_Mzi    = 456
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fxl    = 457
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fyl    = 458
+   INTEGER(IntKi), PARAMETER      :: SStC1_Fzl    = 459
+   INTEGER(IntKi), PARAMETER      :: SStC1_Mxl    = 460
+   INTEGER(IntKi), PARAMETER      :: SStC1_Myl    = 461
+   INTEGER(IntKi), PARAMETER      :: SStC1_Mzl    = 462
+   INTEGER(IntKi), PARAMETER      :: SStC2_XQ     = 463
+   INTEGER(IntKi), PARAMETER      :: SStC2_XQD    = 464
+   INTEGER(IntKi), PARAMETER      :: SStC2_YQ     = 465
+   INTEGER(IntKi), PARAMETER      :: SStC2_YQD    = 466
+   INTEGER(IntKi), PARAMETER      :: SStC2_ZQ     = 467
+   INTEGER(IntKi), PARAMETER      :: SStC2_ZQD    = 468
+   INTEGER(IntKi), PARAMETER      :: SStC2_bQ     = 469
+   INTEGER(IntKi), PARAMETER      :: SStC2_bQD    = 470
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fxi    = 471
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fyi    = 472
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fzi    = 473
+   INTEGER(IntKi), PARAMETER      :: SStC2_Mxi    = 474
+   INTEGER(IntKi), PARAMETER      :: SStC2_Myi    = 475
+   INTEGER(IntKi), PARAMETER      :: SStC2_Mzi    = 476
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fxl    = 477
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fyl    = 478
+   INTEGER(IntKi), PARAMETER      :: SStC2_Fzl    = 479
+   INTEGER(IntKi), PARAMETER      :: SStC2_Mxl    = 480
+   INTEGER(IntKi), PARAMETER      :: SStC2_Myl    = 481
+   INTEGER(IntKi), PARAMETER      :: SStC2_Mzl    = 482
+   INTEGER(IntKi), PARAMETER      :: SStC3_XQ     = 483
+   INTEGER(IntKi), PARAMETER      :: SStC3_XQD    = 484
+   INTEGER(IntKi), PARAMETER      :: SStC3_YQ     = 485
+   INTEGER(IntKi), PARAMETER      :: SStC3_YQD    = 486
+   INTEGER(IntKi), PARAMETER      :: SStC3_ZQ     = 487
+   INTEGER(IntKi), PARAMETER      :: SStC3_ZQD    = 488
+   INTEGER(IntKi), PARAMETER      :: SStC3_bQ     = 489
+   INTEGER(IntKi), PARAMETER      :: SStC3_bQD    = 490
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fxi    = 491
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fyi    = 492
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fzi    = 493
+   INTEGER(IntKi), PARAMETER      :: SStC3_Mxi    = 494
+   INTEGER(IntKi), PARAMETER      :: SStC3_Myi    = 495
+   INTEGER(IntKi), PARAMETER      :: SStC3_Mzi    = 496
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fxl    = 497
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fyl    = 498
+   INTEGER(IntKi), PARAMETER      :: SStC3_Fzl    = 499
+   INTEGER(IntKi), PARAMETER      :: SStC3_Mxl    = 500
+   INTEGER(IntKi), PARAMETER      :: SStC3_Myl    = 501
+   INTEGER(IntKi), PARAMETER      :: SStC3_Mzl    = 502
+   INTEGER(IntKi), PARAMETER      :: SStC4_XQ     = 503
+   INTEGER(IntKi), PARAMETER      :: SStC4_XQD    = 504
+   INTEGER(IntKi), PARAMETER      :: SStC4_YQ     = 505
+   INTEGER(IntKi), PARAMETER      :: SStC4_YQD    = 506
+   INTEGER(IntKi), PARAMETER      :: SStC4_ZQ     = 507
+   INTEGER(IntKi), PARAMETER      :: SStC4_ZQD    = 508
+   INTEGER(IntKi), PARAMETER      :: SStC4_bQ     = 509
+   INTEGER(IntKi), PARAMETER      :: SStC4_bQD    = 510
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fxi    = 511
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fyi    = 512
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fzi    = 513
+   INTEGER(IntKi), PARAMETER      :: SStC4_Mxi    = 514
+   INTEGER(IntKi), PARAMETER      :: SStC4_Myi    = 515
+   INTEGER(IntKi), PARAMETER      :: SStC4_Mzi    = 516
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fxl    = 517
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fyl    = 518
+   INTEGER(IntKi), PARAMETER      :: SStC4_Fzl    = 519
+   INTEGER(IntKi), PARAMETER      :: SStC4_Mxl    = 520
+   INTEGER(IntKi), PARAMETER      :: SStC4_Myl    = 521
+   INTEGER(IntKi), PARAMETER      :: SStC4_Mzl    = 522
 
 
      ! The maximum number of output channels which can be output by the code.
@@ -1600,31 +1600,32 @@ SUBROUTINE SetOutParam(OutList, p, ErrStat, ErrMsg )
                                "NSTC4_FXI   ","NSTC4_FXL   ","NSTC4_FYI   ","NSTC4_FYL   ","NSTC4_FZI   ","NSTC4_FZL   ", &
                                "NSTC4_MXI   ","NSTC4_MXL   ","NSTC4_MYI   ","NSTC4_MYL   ","NSTC4_MZI   ","NSTC4_MZL   ", &
                                "NSTC4_XQ    ","NSTC4_XQD   ","NSTC4_YQ    ","NSTC4_YQD   ","NSTC4_ZQ    ","NSTC4_ZQD   ", &
-                               "SSTC1_FXI   ","SSTC1_FXL   ","SSTC1_FYI   ","SSTC1_FYL   ","SSTC1_FZI   ","SSTC1_FZL   ", &
-                               "SSTC1_MXI   ","SSTC1_MXL   ","SSTC1_MYI   ","SSTC1_MYL   ","SSTC1_MZI   ","SSTC1_MZL   ", &
-                               "SSTC1_XQ    ","SSTC1_XQD   ","SSTC1_YQ    ","SSTC1_YQD   ","SSTC1_ZQ    ","SSTC1_ZQD   ", "SSTC1_bQ    ","SSTC1_bQD   ", &
-                               "SSTC2_FXI   ","SSTC2_FXL   ","SSTC2_FYI   ","SSTC2_FYL   ","SSTC2_FZI   ","SSTC2_FZL   ", &
-                               "SSTC2_MXI   ","SSTC2_MXL   ","SSTC2_MYI   ","SSTC2_MYL   ","SSTC2_MZI   ","SSTC2_MZL   ", &
-                               "SSTC2_XQ    ","SSTC2_XQD   ","SSTC2_YQ    ","SSTC2_YQD   ","SSTC2_ZQ    ","SSTC2_ZQD   ", "SSTC2_bQ    ","SSTC2_bQD   ", &
+                               "SSTC1_BQ    ","SSTC1_BQD   ","SSTC1_FXI   ","SSTC1_FXL   ","SSTC1_FYI   ","SSTC1_FYL   ", &
+                               "SSTC1_FZI   ","SSTC1_FZL   ","SSTC1_MXI   ","SSTC1_MXL   ","SSTC1_MYI   ","SSTC1_MYL   ", &
+                               "SSTC1_MZI   ","SSTC1_MZL   ","SSTC1_XQ    ","SSTC1_XQD   ","SSTC1_YQ    ","SSTC1_YQD   ", &
+                               "SSTC1_ZQ    ","SSTC1_ZQD   ","SSTC2_BQ    ","SSTC2_BQD   ","SSTC2_FXI   ","SSTC2_FXL   ", &
+                               "SSTC2_FYI   ","SSTC2_FYL   ","SSTC2_FZI   ","SSTC2_FZL   ","SSTC2_MXI   ","SSTC2_MXL   ", &
+                               "SSTC2_MYI   ","SSTC2_MYL   ","SSTC2_MZI   ","SSTC2_MZL   ","SSTC2_XQ    ","SSTC2_XQD   ", &
+                               "SSTC2_YQ    ","SSTC2_YQD   ","SSTC2_ZQ    ","SSTC2_ZQD   ","SSTC3_BQ    ","SSTC3_BQD   ", &
                                "SSTC3_FXI   ","SSTC3_FXL   ","SSTC3_FYI   ","SSTC3_FYL   ","SSTC3_FZI   ","SSTC3_FZL   ", &
                                "SSTC3_MXI   ","SSTC3_MXL   ","SSTC3_MYI   ","SSTC3_MYL   ","SSTC3_MZI   ","SSTC3_MZL   ", &
-                               "SSTC3_XQ    ","SSTC3_XQD   ","SSTC3_YQ    ","SSTC3_YQD   ","SSTC3_ZQ    ","SSTC3_ZQD   ", "SSTC3_bQ    ","SSTC3_bQD   ", &
-                               "SSTC4_FXI   ","SSTC4_FXL   ","SSTC4_FYI   ","SSTC4_FYL   ","SSTC4_FZI   ","SSTC4_FZL   ", &
-                               "SSTC4_MXI   ","SSTC4_MXL   ","SSTC4_MYI   ","SSTC4_MYL   ","SSTC4_MZI   ","SSTC4_MZL   ", &
-                               "SSTC4_XQ    ","SSTC4_XQD   ","SSTC4_YQ    ","SSTC4_YQD   ","SSTC4_ZQ    ","SSTC4_ZQD   ", "SSTC4_bQ    ","SSTC4_bQD   ", &
-                               "TSTC1_FXI   ","TSTC1_FXL   ","TSTC1_FYI   ","TSTC1_FYL   ","TSTC1_FZI   ","TSTC1_FZL   ", &
-                               "TSTC1_MXI   ","TSTC1_MXL   ","TSTC1_MYI   ","TSTC1_MYL   ","TSTC1_MZI   ","TSTC1_MZL   ", &
-                               "TSTC1_XQ    ","TSTC1_XQD   ","TSTC1_YQ    ","TSTC1_YQD   ","TSTC1_ZQ    ","TSTC1_ZQD   ", &
-                               "TSTC2_FXI   ","TSTC2_FXL   ","TSTC2_FYI   ","TSTC2_FYL   ","TSTC2_FZI   ","TSTC2_FZL   ", &
-                               "TSTC2_MXI   ","TSTC2_MXL   ","TSTC2_MYI   ","TSTC2_MYL   ","TSTC2_MZI   ","TSTC2_MZL   ", &
-                               "TSTC2_XQ    ","TSTC2_XQD   ","TSTC2_YQ    ","TSTC2_YQD   ","TSTC2_ZQ    ","TSTC2_ZQD   ", &
-                               "TSTC3_FXI   ","TSTC3_FXL   ","TSTC3_FYI   ","TSTC3_FYL   ","TSTC3_FZI   ","TSTC3_FZL   ", &
-                               "TSTC3_MXI   ","TSTC3_MXL   ","TSTC3_MYI   ","TSTC3_MYL   ","TSTC3_MZI   ","TSTC3_MZL   ", &
-                               "TSTC3_XQ    ","TSTC3_XQD   ","TSTC3_YQ    ","TSTC3_YQD   ","TSTC3_ZQ    ","TSTC3_ZQD   ", &
-                               "TSTC4_FXI   ","TSTC4_FXL   ","TSTC4_FYI   ","TSTC4_FYL   ","TSTC4_FZI   ","TSTC4_FZL   ", &
-                               "TSTC4_MXI   ","TSTC4_MXL   ","TSTC4_MYI   ","TSTC4_MYL   ","TSTC4_MZI   ","TSTC4_MZL   ", &
-                               "TSTC4_XQ    ","TSTC4_XQD   ","TSTC4_YQ    ","TSTC4_YQD   ","TSTC4_ZQ    ","TSTC4_ZQD   ", &
-                               "YAWMOM      ","YAWMOMCOM   "/)
+                               "SSTC3_XQ    ","SSTC3_XQD   ","SSTC3_YQ    ","SSTC3_YQD   ","SSTC3_ZQ    ","SSTC3_ZQD   ", &
+                               "SSTC4_BQ    ","SSTC4_BQD   ","SSTC4_FXI   ","SSTC4_FXL   ","SSTC4_FYI   ","SSTC4_FYL   ", &
+                               "SSTC4_FZI   ","SSTC4_FZL   ","SSTC4_MXI   ","SSTC4_MXL   ","SSTC4_MYI   ","SSTC4_MYL   ", &
+                               "SSTC4_MZI   ","SSTC4_MZL   ","SSTC4_XQ    ","SSTC4_XQD   ","SSTC4_YQ    ","SSTC4_YQD   ", &
+                               "SSTC4_ZQ    ","SSTC4_ZQD   ","TSTC1_FXI   ","TSTC1_FXL   ","TSTC1_FYI   ","TSTC1_FYL   ", &
+                               "TSTC1_FZI   ","TSTC1_FZL   ","TSTC1_MXI   ","TSTC1_MXL   ","TSTC1_MYI   ","TSTC1_MYL   ", &
+                               "TSTC1_MZI   ","TSTC1_MZL   ","TSTC1_XQ    ","TSTC1_XQD   ","TSTC1_YQ    ","TSTC1_YQD   ", &
+                               "TSTC1_ZQ    ","TSTC1_ZQD   ","TSTC2_FXI   ","TSTC2_FXL   ","TSTC2_FYI   ","TSTC2_FYL   ", &
+                               "TSTC2_FZI   ","TSTC2_FZL   ","TSTC2_MXI   ","TSTC2_MXL   ","TSTC2_MYI   ","TSTC2_MYL   ", &
+                               "TSTC2_MZI   ","TSTC2_MZL   ","TSTC2_XQ    ","TSTC2_XQD   ","TSTC2_YQ    ","TSTC2_YQD   ", &
+                               "TSTC2_ZQ    ","TSTC2_ZQD   ","TSTC3_FXI   ","TSTC3_FXL   ","TSTC3_FYI   ","TSTC3_FYL   ", &
+                               "TSTC3_FZI   ","TSTC3_FZL   ","TSTC3_MXI   ","TSTC3_MXL   ","TSTC3_MYI   ","TSTC3_MYL   ", &
+                               "TSTC3_MZI   ","TSTC3_MZL   ","TSTC3_XQ    ","TSTC3_XQD   ","TSTC3_YQ    ","TSTC3_YQD   ", &
+                               "TSTC3_ZQ    ","TSTC3_ZQD   ","TSTC4_FXI   ","TSTC4_FXL   ","TSTC4_FYI   ","TSTC4_FYL   ", &
+                               "TSTC4_FZI   ","TSTC4_FZL   ","TSTC4_MXI   ","TSTC4_MXL   ","TSTC4_MYI   ","TSTC4_MYL   ", &
+                               "TSTC4_MZI   ","TSTC4_MZL   ","TSTC4_XQ    ","TSTC4_XQD   ","TSTC4_YQ    ","TSTC4_YQD   ", &
+                               "TSTC4_ZQ    ","TSTC4_ZQD   ","YAWMOM      ","YAWMOMCOM   "/)
    INTEGER(IntKi), PARAMETER :: ParamIndxAry(526) =  (/ &                            ! This lists the index into AllOuts(:) of the allowed parameters ValidParamAry(:)
                                    BlAirFlC1 ,    BlAirFlC2 ,    BlAirFlC3 ,    BlAirFlC1 ,    BlAirFlC2 ,    BlAirFlC3 , &
                                    BlPitchC1 ,    BlPitchC2 ,    BlPitchC3 , BStC1_B1_Fxi , BStC1_B1_Fxl , BStC1_B1_Fyi , &
@@ -1688,32 +1689,33 @@ SUBROUTINE SetOutParam(OutList, p, ErrStat, ErrMsg )
                                    NStC4_Fxi ,    NStC4_Fxl ,    NStC4_Fyi ,    NStC4_Fyl ,    NStC4_Fzi ,    NStC4_Fzl , &
                                    NStC4_Mxi ,    NStC4_Mxl ,    NStC4_Myi ,    NStC4_Myl ,    NStC4_Mzi ,    NStC4_Mzl , &
                                     NStC4_XQ ,    NStC4_XQD ,     NStC4_YQ ,    NStC4_YQD ,     NStC4_ZQ ,    NStC4_ZQD , &
-                                   SStC1_Fxi ,    SStC1_Fxl ,    SStC1_Fyi ,    SStC1_Fyl ,    SStC1_Fzi ,    SStC1_Fzl , &
-                                   SStC1_Mxi ,    SStC1_Mxl ,    SStC1_Myi ,    SStC1_Myl ,    SStC1_Mzi ,    SStC1_Mzl , &
-                                    SStC1_XQ ,    SStC1_XQD ,     SStC1_YQ ,    SStC1_YQD ,     SStC1_ZQ ,    SStC1_ZQD ,     SStC1_bQ ,    SStC1_bQD , &
-                                   SStC2_Fxi ,    SStC2_Fxl ,    SStC2_Fyi ,    SStC2_Fyl ,    SStC2_Fzi ,    SStC2_Fzl , &
-                                   SStC2_Mxi ,    SStC2_Mxl ,    SStC2_Myi ,    SStC2_Myl ,    SStC2_Mzi ,    SStC2_Mzl , &
-                                    SStC2_XQ ,    SStC2_XQD ,     SStC2_YQ ,    SStC2_YQD ,     SStC2_ZQ ,    SStC2_ZQD ,     SStC2_bQ ,    SStC2_bQD , &
+                                    SStC1_bQ ,    SStC1_bQD ,    SStC1_Fxi ,    SStC1_Fxl ,    SStC1_Fyi ,    SStC1_Fyl , &
+                                   SStC1_Fzi ,    SStC1_Fzl ,    SStC1_Mxi ,    SStC1_Mxl ,    SStC1_Myi ,    SStC1_Myl , &
+                                   SStC1_Mzi ,    SStC1_Mzl ,     SStC1_XQ ,    SStC1_XQD ,     SStC1_YQ ,    SStC1_YQD , &
+                                    SStC1_ZQ ,    SStC1_ZQD ,     SStC2_bQ ,    SStC2_bQD ,    SStC2_Fxi ,    SStC2_Fxl , &
+                                   SStC2_Fyi ,    SStC2_Fyl ,    SStC2_Fzi ,    SStC2_Fzl ,    SStC2_Mxi ,    SStC2_Mxl , &
+                                   SStC2_Myi ,    SStC2_Myl ,    SStC2_Mzi ,    SStC2_Mzl ,     SStC2_XQ ,    SStC2_XQD , &
+                                    SStC2_YQ ,    SStC2_YQD ,     SStC2_ZQ ,    SStC2_ZQD ,     SStC3_bQ ,    SStC3_bQD , &
                                    SStC3_Fxi ,    SStC3_Fxl ,    SStC3_Fyi ,    SStC3_Fyl ,    SStC3_Fzi ,    SStC3_Fzl , &
                                    SStC3_Mxi ,    SStC3_Mxl ,    SStC3_Myi ,    SStC3_Myl ,    SStC3_Mzi ,    SStC3_Mzl , &
-                                    SStC3_XQ ,    SStC3_XQD ,     SStC3_YQ ,    SStC3_YQD ,     SStC3_ZQ ,    SStC3_ZQD ,     SStC3_bQ ,    SStC3_bQD , &
-                                   SStC4_Fxi ,    SStC4_Fxl ,    SStC4_Fyi ,    SStC4_Fyl ,    SStC4_Fzi ,    SStC4_Fzl , &
-                                   SStC4_Mxi ,    SStC4_Mxl ,    SStC4_Myi ,    SStC4_Myl ,    SStC4_Mzi ,    SStC4_Mzl , &
-                                    SStC4_XQ ,    SStC4_XQD ,     SStC4_YQ ,    SStC4_YQD ,     SStC4_ZQ ,    SStC4_ZQD ,     SStC4_bQ ,    SStC4_bQD , &
-                                   TStC1_Fxi ,    TStC1_Fxl ,    TStC1_Fyi ,    TStC1_Fyl ,    TStC1_Fzi ,    TStC1_Fzl , &
-                                   TStC1_Mxi ,    TStC1_Mxl ,    TStC1_Myi ,    TStC1_Myl ,    TStC1_Mzi ,    TStC1_Mzl , &
-                                    TStC1_XQ ,    TStC1_XQD ,     TStC1_YQ ,    TStC1_YQD ,     TStC1_ZQ ,    TStC1_ZQD , &
-                                   TStC2_Fxi ,    TStC2_Fxl ,    TStC2_Fyi ,    TStC2_Fyl ,    TStC2_Fzi ,    TStC2_Fzl , &
-                                   TStC2_Mxi ,    TStC2_Mxl ,    TStC2_Myi ,    TStC2_Myl ,    TStC2_Mzi ,    TStC2_Mzl , &
-                                    TStC2_XQ ,    TStC2_XQD ,     TStC2_YQ ,    TStC2_YQD ,     TStC2_ZQ ,    TStC2_ZQD , &
-                                   TStC3_Fxi ,    TStC3_Fxl ,    TStC3_Fyi ,    TStC3_Fyl ,    TStC3_Fzi ,    TStC3_Fzl , &
-                                   TStC3_Mxi ,    TStC3_Mxl ,    TStC3_Myi ,    TStC3_Myl ,    TStC3_Mzi ,    TStC3_Mzl , &
-                                    TStC3_XQ ,    TStC3_XQD ,     TStC3_YQ ,    TStC3_YQD ,     TStC3_ZQ ,    TStC3_ZQD , &
-                                   TStC4_Fxi ,    TStC4_Fxl ,    TStC4_Fyi ,    TStC4_Fyl ,    TStC4_Fzi ,    TStC4_Fzl , &
-                                   TStC4_Mxi ,    TStC4_Mxl ,    TStC4_Myi ,    TStC4_Myl ,    TStC4_Mzi ,    TStC4_Mzl , &
-                                    TStC4_XQ ,    TStC4_XQD ,     TStC4_YQ ,    TStC4_YQD ,     TStC4_ZQ ,    TStC4_ZQD , &
-                                   YawMomCom ,    YawMomCom /)
-   CHARACTER(ChanLen), PARAMETER :: ParamUnitsAry(518) =  (/  &  ! This lists the units corresponding to the allowed parameters
+                                    SStC3_XQ ,    SStC3_XQD ,     SStC3_YQ ,    SStC3_YQD ,     SStC3_ZQ ,    SStC3_ZQD , &
+                                    SStC4_bQ ,    SStC4_bQD ,    SStC4_Fxi ,    SStC4_Fxl ,    SStC4_Fyi ,    SStC4_Fyl , &
+                                   SStC4_Fzi ,    SStC4_Fzl ,    SStC4_Mxi ,    SStC4_Mxl ,    SStC4_Myi ,    SStC4_Myl , &
+                                   SStC4_Mzi ,    SStC4_Mzl ,     SStC4_XQ ,    SStC4_XQD ,     SStC4_YQ ,    SStC4_YQD , &
+                                    SStC4_ZQ ,    SStC4_ZQD ,    TStC1_Fxi ,    TStC1_Fxl ,    TStC1_Fyi ,    TStC1_Fyl , &
+                                   TStC1_Fzi ,    TStC1_Fzl ,    TStC1_Mxi ,    TStC1_Mxl ,    TStC1_Myi ,    TStC1_Myl , &
+                                   TStC1_Mzi ,    TStC1_Mzl ,     TStC1_XQ ,    TStC1_XQD ,     TStC1_YQ ,    TStC1_YQD , &
+                                    TStC1_ZQ ,    TStC1_ZQD ,    TStC2_Fxi ,    TStC2_Fxl ,    TStC2_Fyi ,    TStC2_Fyl , &
+                                   TStC2_Fzi ,    TStC2_Fzl ,    TStC2_Mxi ,    TStC2_Mxl ,    TStC2_Myi ,    TStC2_Myl , &
+                                   TStC2_Mzi ,    TStC2_Mzl ,     TStC2_XQ ,    TStC2_XQD ,     TStC2_YQ ,    TStC2_YQD , &
+                                    TStC2_ZQ ,    TStC2_ZQD ,    TStC3_Fxi ,    TStC3_Fxl ,    TStC3_Fyi ,    TStC3_Fyl , &
+                                   TStC3_Fzi ,    TStC3_Fzl ,    TStC3_Mxi ,    TStC3_Mxl ,    TStC3_Myi ,    TStC3_Myl , &
+                                   TStC3_Mzi ,    TStC3_Mzl ,     TStC3_XQ ,    TStC3_XQD ,     TStC3_YQ ,    TStC3_YQD , &
+                                    TStC3_ZQ ,    TStC3_ZQD ,    TStC4_Fxi ,    TStC4_Fxl ,    TStC4_Fyi ,    TStC4_Fyl , &
+                                   TStC4_Fzi ,    TStC4_Fzl ,    TStC4_Mxi ,    TStC4_Mxl ,    TStC4_Myi ,    TStC4_Myl , &
+                                   TStC4_Mzi ,    TStC4_Mzl ,     TStC4_XQ ,    TStC4_XQD ,     TStC4_YQ ,    TStC4_YQD , &
+                                    TStC4_ZQ ,    TStC4_ZQD ,    YawMomCom ,    YawMomCom /)
+   CHARACTER(ChanLen), PARAMETER :: ParamUnitsAry(526) =  (/ character(ChanLen) :: &  ! This lists the units corresponding to the allowed parameters
                                "(-)   ","(-)   ","(-)   ","(-)   ","(-)   ","(-)   ", &
                                "(deg) ","(deg) ","(deg) ","(kN)  ","(kN)  ","(kN)  ", &
                                "(kN)  ","(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)", &
@@ -1776,31 +1778,32 @@ SUBROUTINE SetOutParam(OutList, p, ErrStat, ErrMsg )
                                "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
                                "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
                                "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(m)   ","(m/s) ", &
                                "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
                                "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
                                "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
                                "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
-                               "(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
-                               "(m)   ","(m/s) ","(m)   ","(m/s) ","(m)   ","(m/s) ", &
-                               "(kN-m)","(kN-m)"/)
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(kN)  ","(kN)  ","(kN)  ","(kN)  ", &
+                               "(kN)  ","(kN)  ","(kN-m)","(kN-m)","(kN-m)","(kN-m)", &
+                               "(kN-m)","(kN-m)","(m)   ","(m/s) ","(m)   ","(m/s) ", &
+                               "(m)   ","(m/s) ","(kN-m)","(kN-m)"/)
 
 
       ! Initialize values

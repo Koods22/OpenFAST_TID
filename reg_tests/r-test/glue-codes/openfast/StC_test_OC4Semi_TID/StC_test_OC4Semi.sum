@@ -1,7 +1,7 @@
 
 FAST Summary File
 
-Predictions were generated on 17-Feb-2023 at 05:40:20 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.2.1-dirty
+Predictions were generated on 03-Mar-2023 at 09:11:31 using OpenFAST, compiled as a 64-bit application using single precision at commit v3.2.1-dirty
   compiled with
     NWTC Subroutine Library
     ElastoDyn
@@ -39,7 +39,7 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
   ServoDyn            1.250E-02              1
   HydroDyn            1.250E-02              1
   MoorDyn             1.250E-02              1
-  FAST output files   5.000E-02              4^-1
+  FAST output files   1.250E-02              1
 
 
    Requested Channels in FAST Output File(s)  
@@ -63,99 +63,84 @@ Number of rows in Jacobian matrix used for coupling ElastoDyn to HydroDyn:     1
       15  PtfmRoll              (deg)                 ElastoDyn
       16  PtfmPitch             (deg)                 ElastoDyn
       17  PtfmYaw               (deg)                 ElastoDyn
-      18  RootFxc1              (kN)                  ElastoDyn
-      19  RootFyc1              (kN)                  ElastoDyn
-      20  RootFzc1              (kN)                  ElastoDyn
-      21  RootMxc1              (kN-m)                ElastoDyn
-      22  RootMyc1              (kN-m)                ElastoDyn
-      23  RootMzc1              (kN-m)                ElastoDyn
-      24  RotTorq               (kN-m)                ElastoDyn
-      25  LSSGagMya             (kN-m)                ElastoDyn
-      26  LSSGagMza             (kN-m)                ElastoDyn
-      27  YawBrFxp              (kN)                  ElastoDyn
-      28  YawBrFyp              (kN)                  ElastoDyn
-      29  YawBrFzp              (kN)                  ElastoDyn
-      30  YawBrMxp              (kN-m)                ElastoDyn
-      31  YawBrMyp              (kN-m)                ElastoDyn
-      32  YawBrMzp              (kN-m)                ElastoDyn
-      33  TwrBsFxt              (kN)                  ElastoDyn
-      34  TwrBsFyt              (kN)                  ElastoDyn
-      35  TwrBsFzt              (kN)                  ElastoDyn
-      36  TwrBsMxt              (kN-m)                ElastoDyn
-      37  TwrBsMyt              (kN-m)                ElastoDyn
-      38  TwrBsMzt              (kN-m)                ElastoDyn
-      39  GenPwr                (kW)                  ServoDyn
-      40  GenTq                 (kN-m)                ServoDyn
-      41  SStC1_XQ              (m)                   ServoDyn
-      42  SStC1_XQD             (m/s)                 ServoDyn
-      43  SStC1_YQ              (m)                   ServoDyn
-      44  SStC1_YQD             (m/s)                 ServoDyn
-      45  SStC1_ZQ              (m)                   ServoDyn
-      46  SStC1_ZQD             (m/s)                 ServoDyn
-      47  SStC1_Fxi             (kN)                  ServoDyn
-      48  SStC1_Fyi             (kN)                  ServoDyn
-      49  SStC1_Fzi             (kN)                  ServoDyn
-      50  SStC1_Mxi             (kN-m)                ServoDyn
-      51  SStC1_Myi             (kN-m)                ServoDyn
-      52  SStC1_Mzi             (kN-m)                ServoDyn
-      53  SStC1_Fxl             (kN)                  ServoDyn
-      54  SStC1_Fyl             (kN)                  ServoDyn
-      55  SStC1_Fzl             (kN)                  ServoDyn
-      56  SStC1_Mxl             (kN-m)                ServoDyn
-      57  SStC1_Myl             (kN-m)                ServoDyn
-      58  SStC1_Mzl             (kN-m)                ServoDyn
-      59  SStC2_XQ              (m)                   ServoDyn
-      60  SStC2_XQD             (m/s)                 ServoDyn
-      61  SStC2_YQ              (m)                   ServoDyn
-      62  SStC2_YQD             (m/s)                 ServoDyn
-      63  SStC2_ZQ              (kN)                  ServoDyn
-      64  SStC2_ZQD             (kN)                  ServoDyn
-      65  SStC2_Fxi             (kN)                  ServoDyn
-      66  SStC2_Fyi             (kN)                  ServoDyn
-      67  SStC2_Fzi             (kN-m)                ServoDyn
-      68  SStC2_Mxi             (kN-m)                ServoDyn
-      69  SStC2_Myi             (kN-m)                ServoDyn
-      70  SStC2_Mzi             (m)                   ServoDyn
-      71  SStC2_Fxl             (kN)                  ServoDyn
-      72  SStC2_Fyl             (kN)                  ServoDyn
-      73  SStC2_Fzl             (kN-m)                ServoDyn
-      74  SStC2_Mxl             (kN-m)                ServoDyn
-      75  SStC2_Myl             (kN-m)                ServoDyn
-      76  SStC2_Mzl             (m/s)                 ServoDyn
-      77  SStC3_XQ              (m)                   ServoDyn
-      78  SStC3_XQD             (m/s)                 ServoDyn
-      79  SStC3_YQ              (kN)                  ServoDyn
-      80  SStC3_YQD             (kN)                  ServoDyn
-      81  SStC3_ZQ              (kN)                  ServoDyn
-      82  SStC3_ZQD             (kN)                  ServoDyn
-      83  SStC3_Fxi             (kN)                  ServoDyn
-      84  SStC3_Fyi             (kN-m)                ServoDyn
-      85  SStC3_Fzi             (kN-m)                ServoDyn
-      86  SStC3_Mxi             (kN-m)                ServoDyn
-      87  SStC3_Myi             (m)                   ServoDyn
-      88  SStC3_Mzi             (m)                   ServoDyn
-      89  SStC3_Fxl             (kN)                  ServoDyn
-      90  SStC3_Fyl             (kN-m)                ServoDyn
-      91  SStC3_Fzl             (kN-m)                ServoDyn
-      92  SStC3_Mxl             (kN-m)                ServoDyn
-      93  SStC3_Myl             (m/s)                 ServoDyn
-      94  SStC3_Mzl             (m/s)                 ServoDyn
-      95  Wave1Elev             (m)                   HydroDyn
-      96  HydroFxi              (N)                   HydroDyn
-      97  HydroFyi              (N)                   HydroDyn
-      98  HydroFzi              (N)                   HydroDyn
-      99  HydroMxi              (N-m)                 HydroDyn
-     100  HydroMyi              (N-m)                 HydroDyn
-     101  HydroMzi              (N-m)                 HydroDyn
-     102  B1Surge               (m)                   HydroDyn
-     103  B1Sway                (m)                   HydroDyn
-     104  B1Heave               (m)                   HydroDyn
-     105  B1Roll                (rad)                 HydroDyn
-     106  B1Pitch               (rad)                 HydroDyn
-     107  B1Yaw                 (rad)                 HydroDyn
-     108  FAIRTEN1              (N)                   MoorDyn
-     109  FAIRTEN2              (N)                   MoorDyn
-     110  FAIRTEN3              (N)                   MoorDyn
-     111  ANCHTEN1              (N)                   MoorDyn
-     112  ANCHTEN2              (N)                   MoorDyn
-     113  ANCHTEN3              (N)                   MoorDyn
+      18  GenPwr                (kW)                  ServoDyn
+      19  GenTq                 (kN-m)                ServoDyn
+      20  SStC1_XQ              (m)                   ServoDyn
+      21  SStC1_XQD             (m/s)                 ServoDyn
+      22  SStC1_YQ              (m)                   ServoDyn
+      23  SStC1_YQD             (m/s)                 ServoDyn
+      24  SStC1_ZQ              (m)                   ServoDyn
+      25  SStC1_ZQD             (m/s)                 ServoDyn
+      26  SStC1_bQ              (m)                   ServoDyn
+      27  SStC1_bQD             (m/s)                 ServoDyn
+      28  SStC1_Fxi             (kN)                  ServoDyn
+      29  SStC1_Fyi             (kN)                  ServoDyn
+      30  SStC1_Fzi             (kN)                  ServoDyn
+      31  SStC1_Mxi             (kN-m)                ServoDyn
+      32  SStC1_Myi             (kN-m)                ServoDyn
+      33  SStC1_Mzi             (kN-m)                ServoDyn
+      34  SStC1_Fxl             (kN)                  ServoDyn
+      35  SStC1_Fyl             (kN)                  ServoDyn
+      36  SStC1_Fzl             (kN)                  ServoDyn
+      37  SStC1_Mxl             (kN-m)                ServoDyn
+      38  SStC1_Myl             (kN-m)                ServoDyn
+      39  SStC1_Mzl             (kN-m)                ServoDyn
+      40  SStC2_XQ              (m)                   ServoDyn
+      41  SStC2_XQD             (m/s)                 ServoDyn
+      42  SStC2_YQ              (m)                   ServoDyn
+      43  SStC2_YQD             (m/s)                 ServoDyn
+      44  SStC2_ZQ              (m)                   ServoDyn
+      45  SStC2_ZQD             (m/s)                 ServoDyn
+      46  SStC2_bQ              (m)                   ServoDyn
+      47  SStC2_bQD             (m/s)                 ServoDyn
+      48  SStC2_Fxi             (kN)                  ServoDyn
+      49  SStC2_Fyi             (kN)                  ServoDyn
+      50  SStC2_Fzi             (kN)                  ServoDyn
+      51  SStC2_Mxi             (kN-m)                ServoDyn
+      52  SStC2_Myi             (kN-m)                ServoDyn
+      53  SStC2_Mzi             (kN-m)                ServoDyn
+      54  SStC2_Fxl             (kN)                  ServoDyn
+      55  SStC2_Fyl             (kN)                  ServoDyn
+      56  SStC2_Fzl             (kN)                  ServoDyn
+      57  SStC2_Mxl             (kN-m)                ServoDyn
+      58  SStC2_Myl             (kN-m)                ServoDyn
+      59  SStC2_Mzl             (kN-m)                ServoDyn
+      60  SStC3_XQ              (m)                   ServoDyn
+      61  SStC3_XQD             (m/s)                 ServoDyn
+      62  SStC3_YQ              (m)                   ServoDyn
+      63  SStC3_YQD             (m/s)                 ServoDyn
+      64  SStC3_ZQ              (m)                   ServoDyn
+      65  SStC3_ZQD             (m/s)                 ServoDyn
+      66  SStC3_bQ              (m)                   ServoDyn
+      67  SStC3_bQD             (m/s)                 ServoDyn
+      68  SStC3_Fxi             (kN)                  ServoDyn
+      69  SStC3_Fyi             (kN)                  ServoDyn
+      70  SStC3_Fzi             (kN)                  ServoDyn
+      71  SStC3_Mxi             (kN-m)                ServoDyn
+      72  SStC3_Myi             (kN-m)                ServoDyn
+      73  SStC3_Mzi             (kN-m)                ServoDyn
+      74  SStC3_Fxl             (kN)                  ServoDyn
+      75  SStC3_Fyl             (kN)                  ServoDyn
+      76  SStC3_Fzl             (kN)                  ServoDyn
+      77  SStC3_Mxl             (kN-m)                ServoDyn
+      78  SStC3_Myl             (kN-m)                ServoDyn
+      79  SStC3_Mzl             (kN-m)                ServoDyn
+      80  Wave1Elev             (m)                   HydroDyn
+      81  HydroFxi              (N)                   HydroDyn
+      82  HydroFyi              (N)                   HydroDyn
+      83  HydroFzi              (N)                   HydroDyn
+      84  HydroMxi              (N-m)                 HydroDyn
+      85  HydroMyi              (N-m)                 HydroDyn
+      86  HydroMzi              (N-m)                 HydroDyn
+      87  B1Surge               (m)                   HydroDyn
+      88  B1Sway                (m)                   HydroDyn
+      89  B1Heave               (m)                   HydroDyn
+      90  B1Roll                (rad)                 HydroDyn
+      91  B1Pitch               (rad)                 HydroDyn
+      92  B1Yaw                 (rad)                 HydroDyn
+      93  FAIRTEN1              (N)                   MoorDyn
+      94  FAIRTEN2              (N)                   MoorDyn
+      95  FAIRTEN3              (N)                   MoorDyn
+      96  ANCHTEN1              (N)                   MoorDyn
+      97  ANCHTEN2              (N)                   MoorDyn
+      98  ANCHTEN3              (N)                   MoorDyn

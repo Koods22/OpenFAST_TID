@@ -3,7 +3,7 @@ Input file for tuned mass damper, module by Matt Lackner, Meghan Glade, and Semy
 ---------------------- SIMULATION CONTROL --------------------------------------
 True          Echo         - Echo input data to <RootName>.ech (flag)
 ---------------------- StC DEGREES OF FREEDOM ----------------------------------
-          5   StC_DOF_MODE - DOF mode (switch) {0: No StC or TLCD DOF; 1: StC_X_DOF, StC_Y_DOF, and/or StC_Z_DOF (three independent StC DOFs); 2: StC_XY_DOF (Omni-Directional StC); 3: TLCD; 4: Prescribed force/moment time series}; 5: TID
+          0   StC_DOF_MODE - DOF mode (switch) {0: No StC or TLCD DOF; 1: StC_X_DOF, StC_Y_DOF, and/or StC_Z_DOF (three independent StC DOFs); 2: StC_XY_DOF (Omni-Directional StC); 3: TLCD; 4: Prescribed force/moment time series}; 5: TID
 false         StC_X_DOF    - DOF on or off for StC X (flag) [Used only when StC_DOF_MODE=1]
 false         StC_Y_DOF    - DOF on or off for StC Y (flag) [Used only when StC_DOF_MODE=1]
 true          StC_Z_DOF    - DOF on or off for StC Z (flag) [Used only when StC_DOF_MODE=1]
@@ -26,16 +26,16 @@ true          StC_Z_DOF    - DOF on or off for StC Z (flag) [Used only when StC_
 ---------------------- StC MASS, STIFFNESS, & DAMPING ------------------------- [used only when StC_DOF_MODE=1 or 2]
           0   StC_X_M      - StC X mass (kg) [must equal StC_Y_M for StC_DOF_MODE = 2]
           0   StC_Y_M      - StC Y mass (kg) [must equal StC_X_M for StC_DOF_MODE = 2]
-     163963.5   StC_Z_M      - StC Z mass (kg) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
-       4099.1   StC_b_M      - StC Inerter mass (kg) [used only when StC_DOF_MODE=5 and StC_Z_DOF=TRUE]
+     234540   StC_Z_M      - StC Z mass (kg) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+      10232   StC_b_M      - StC Inerter mass (kg) [used only when StC_DOF_MODE=5 and StC_Z_DOF=TRUE]
           0   StC_XY_M     - StC XY mass (kg) [used only when StC_DOF_MODE=2]
           0   StC_X_K      - StC X stiffness (N/m)
           0   StC_Y_K      - StC Y stiffness (N/m)
-      6422.85   StC_Z_K      - StC Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
-        160.57   StC_b_K      - StC b stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+       18744   StC_Z_K      - StC Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+        896   StC_b_K      - StC b stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
           0   StC_X_C      - StC X damping (N/(m/s))
           0   StC_Y_C      - StC Y damping (N/(m/s))
-      25352.9   StC_Z_C      - StC Z damping (N/(m/s)) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE or StC_DOF_MODE=5]
+         864   StC_Z_C      - StC Z damping (N/(m/s)) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE or StC_DOF_MODE=5]
           0   StC_X_KS     - Stop spring X stiffness (N/m)
           0   StC_Y_KS     - Stop spring Y stiffness (N/m)
       1500    StC_Z_KS     - Stop spring Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
