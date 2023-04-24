@@ -214,12 +214,13 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       x%StC_x(6,i_pt) = 0
       x%StC_x(8,i_pt) = 0
    enddo
-! Changes were made above ====================================================================================================
 
    ! set positions and orientations for tuned mass dampers's
    call AllocAry(InitOut%RelPosition,  4, p%NumMeshPts, 'RelPosition',     ErrStat2,ErrMsg2);  if (Failed())  return;
    call AllocAry(RefPosGlobal,         4, p%NumMeshPts, 'RefPosGlobal',    ErrStat2,ErrMsg2);  if (Failed())  return;
 
+   ! Changes were made above ====================================================================================================
+  
    ! Set the initial positions and orientations for each point (Ref coords)
    do i_pt = 1,p%NumMeshPts
       InitOut%RelPosition(:,i_pt)   = (/ InputFileData%StC_P_X, InputFileData%StC_P_Y, InputFileData%StC_P_Z /)
@@ -325,6 +326,7 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       ! Set the interval value to tell ServoDyn we are using (we don't actually change this in StC)
    Interval = p%DT
 
+      ! Changes made below =================================================================================================
 
       ! Initialize the input and output arrays for control channels
       !     NOTE: these will get resized later in ServoDyn!!!!
@@ -349,7 +351,6 @@ SUBROUTINE StC_Init( InitInp, u, p, x, xd, z, OtherState, y, m, Interval, InitOu
       y%MeasDisp  =  0.0_ReKi
       y%MeasVel   =  0.0_ReKi
       
-      ! Changes made below =================================================================================================
       ! Check that dimensions of x are what we expect
       if (size(p%StC_CChan) /= size(x%StC_x,2)) then
          ErrStat2 = ErrID_Fatal
