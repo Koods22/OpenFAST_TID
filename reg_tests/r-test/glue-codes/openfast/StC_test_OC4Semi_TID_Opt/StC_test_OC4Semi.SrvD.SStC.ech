@@ -1,4 +1,4 @@
-Echo file for StructCtrl input file: .\StC-Sub-Zdof-3.dat
+Echo file for StructCtrl input file: .\StC-Sub-Zdof-3-opt.dat
 ------- STRUCTURAL CONTROL (StC) INPUT FILE ----------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 Input file for tuned mass damper, module by Matt Lackner, Meghan Glade, and Semyung Park (UMass)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 ---------------------- SIMULATION CONTROL --------------------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
@@ -27,16 +27,16 @@ Input file for tuned mass damper, module by Matt Lackner, Meghan Glade, and Semy
 ---------------------- StC MASS, STIFFNESS, & DAMPING ------------------------- [used only when StC_DOF_MODE=1 or 2]                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
  0               = StC_X_M             
  0               = StC_Y_M             
- 375200          = StC_Z_M             
- 19016           = StC_b_M             
+ 234500          = StC_Z_M             
+ 8000            = StC_b_M             
  0               = StC_XY_M            
  0               = StC_X_K             
  0               = StC_Y_K             
- 29106           = StC_Z_K             
- 1618            = StC_b_K             
+ 10000           = StC_Z_K             
+ 450             = StC_b_K             
  0               = StC_X_C             
  0               = StC_Y_C             
- 16606           = StC_Z_C             
+ 550             = StC_Z_C             
  0               = StC_X_KS            
  0               = StC_Y_KS            
  1500            = StC_Z_KS            
