@@ -1,0 +1,57 @@
+﻿  Performing Custom Build Tools
+  ======================================================================
+  
+  ----- FAST Registry --------------
+  ----------------------------------------------------------
+  input file: ..\..\modules\map\src\MAP_Registry.txt
+  opening ..\..\modules\nwtc-library\src/Registry_NWTC_Library.txt 
+  opening ..\..\modules\map\src/MAP_Fortran_Registry.txt in usefrom mode
+  opening ..\..\modules\nwtc-library\src/Registry_NWTC_Library.txt in usefrom mode
+  generating ..\..\modules\map\src/MAP_Types.f90
+CUSTOMBUILD : Registry warning : derived data type LinInitInp of type lin_initinputtype is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type LinInitInp of type lin_initinputtype is not passed through F-C interface
+CUSTOMBUILD : Registry warning : derived data type Ver of type progdesc is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type LinInitOut of type lin_initoutputtype is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type Ver of type progdesc is not passed through F-C interface
+CUSTOMBUILD : Registry warning : derived data type LinInitOut of type lin_initoutputtype is not passed through F-C interface
+CUSTOMBUILD : Registry warning : derived data type LinParams of type lin_paramtype is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type LinParams of type lin_paramtype is not passed through F-C interface
+CUSTOMBUILD : Registry warning : derived data type PtFairDisplacement of type meshtype is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type PtFairDisplacement of type meshtype is not passed through F-C interface
+CUSTOMBUILD : Registry warning : derived data type ptFairleadLoad of type meshtype is not passed through C interface
+CUSTOMBUILD : Registry warning : derived data type ptFairleadLoad of type meshtype is not passed through F-C interface
+  
+  ----- FAST Registry --------------
+  ----------------------------------------------------------
+  input file: ..\..\modules\map\src\MAP_Fortran_Registry.txt
+  opening ..\..\modules\nwtc-library\src/Registry_NWTC_Library.txt 
+  generating ..\..\modules\map\src/MAP_Fortran_Types.f90
+  
+  Registry for MAP completed.
+   
+  ======================================================================
+  bstraux.c
+C:\Users\kdoku\Documents\openFAST_TMD\openfast\modules\map\src\bstring\bstraux.c(1004,26): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\kdoku\Documents\openFAST_TMD\openfast\modules\map\src\bstring\bstraux.c(1017,13): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  bstrlib.c
+C:\Users\kdoku\Documents\openFAST_TMD\openfast\modules\map\src\bstring\bstrlib.c(367,32): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+  dpmpar.c
+  enorm.c
+  enorm_u.c
+  lmder.c
+  lmpar.c
+  qrfac.c
+  qrsolv.c
+  freedata.c
+  jacobian.c
+  lineroutines.c
+  mapapi.c
+  maperror.c
+  mapinit.c
+  numeric.c
+  outputstream.c
+  residual.c
+  simclist.c
+  Generating Code...
+  lmroutines.cc
+  MAP_dll.vcxproj -> C:\Users\kdoku\Documents\openFAST_TMD\openfast\build\bin\MAP_x64.lib

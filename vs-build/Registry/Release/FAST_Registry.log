@@ -1,0 +1,16 @@
+﻿  data.c
+  gen_c_types.c
+  gen_module_files.c
+  misc.c
+  my_strtok.c
+  registry.c
+  reg_parse.c
+  sym.c
+  symtab_gen.c
+  type.c
+  Generating code
+  74 of 75 functions (98.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  FAST_Registry.vcxproj -> C:\Users\kdoku\Documents\openFAST_TMD\OpenFAST_TID\build\bin\Registry.exe
