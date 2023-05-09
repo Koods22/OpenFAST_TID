@@ -3,7 +3,7 @@ FAST Certification Test #25: NREL 5.0 MW Baseline Wind Turbine with OC4-DeepCwin
 ---------------------- SIMULATION CONTROL --------------------------------------
 True          Echo            - Echo input data to <RootName>.ech (flag)
 "FATAL"       AbortLevel      - Error level when simulation should abort (string) {"WARNING", "SEVERE", "FATAL"}
-        300   TMax            - Total run time (s)
+        1640   TMax            - Total run time (s)
       0.0125   DT              - Recommended module time step (s)
           2   InterpOrder     - Interpolation order for input/output time history (-) {1=linear, 2=quadratic}
           0   NumCrctn        - Number of correction iterations (-) {0=explicit calculation, i.e., no corrections}
@@ -11,8 +11,8 @@ True          Echo            - Echo input data to <RootName>.ech (flag)
       1E+06   UJacSclFact     - Scaling factor used in Jacobians (-)
 ---------------------- FEATURE SWITCHES AND FLAGS ------------------------------
           1   CompElast       - Compute structural dynamics (switch) {1=ElastoDyn; 2=ElastoDyn + BeamDyn for blades}
-          0   CompInflow      - Compute inflow wind velocities (switch) {0=still air; 1=InflowWind; 2=external from OpenFOAM}
-          0   CompAero        - Compute aerodynamic loads (switch) {0=None; 1=AeroDyn v14; 2=AeroDyn v15}
+          1   CompInflow      - Compute inflow wind velocities (switch) {0=still air; 1=InflowWind; 2=external from OpenFOAM}
+          2   CompAero        - Compute aerodynamic loads (switch) {0=None; 1=AeroDyn v14; 2=AeroDyn v15}
           1   CompServo       - Compute control and electrical-drive dynamics (switch) {0=None; 1=ServoDyn}
           1   CompHydro       - Compute hydrodynamic loads (switch) {0=None; 1=HydroDyn}
           0   CompSub         - Compute sub-structural dynamics (switch) {0=None; 1=SubDyn; 2=External Platform MCKF}
@@ -34,7 +34,7 @@ True          Echo            - Echo input data to <RootName>.ech (flag)
 "unused"      BDBldFile(1)    - Name of file containing BeamDyn input parameters for blade 1 (quoted string)
 "unused"      BDBldFile(2)    - Name of file containing BeamDyn input parameters for blade 2 (quoted string)
 "unused"      BDBldFile(3)    - Name of file containing BeamDyn input parameters for blade 3 (quoted string)
-"../5MW_Baseline/NRELOffshrBsline5MW_InflowWind_steady12mps.dat"    InflowFile      - Name of file containing inflow wind input parameters (quoted string)
+"../5MW_Baseline/NRELOffshrBsline5MW_InflowWind_steady9mps.dat"    InflowFile      - Name of file containing inflow wind input parameters (quoted string)
 "NRELOffshrBsline5MW_OC3Hywind_AeroDyn15.dat"    AeroFile        - Name of file containing aerodynamic input parameters (quoted string)
 "ServoDyn_with_StC.dat"    ServoFile       - Name of file containing control and electrical-drive input parameters (quoted string)
 "NRELOffshrBsline5MW_OC4DeepCwindSemi_HydroDyn.dat"    HydroFile       - Name of file containing hydrodynamic input parameters (quoted string)

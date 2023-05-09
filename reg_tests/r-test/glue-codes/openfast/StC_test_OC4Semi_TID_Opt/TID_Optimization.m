@@ -4,7 +4,7 @@ tic
 %% Define Parameter Ranges
 % k_range = 25000:500:35000;
 % c_range = 12000:500:22000;
-k_1 = 10000;
+k_1 = 6000;
 k_range = 50:100:750;
 c_range = 50:100:750;
 b_range = 4000:1000:9000;

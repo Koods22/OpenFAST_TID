@@ -27,15 +27,15 @@ true             StC_Z_DOF    - DOF on or off for StC Z (flag) [Used only when S
              0   StC_X_M      - StC X mass (kg) [must equal StC_Y_M for StC_DOF_MODE = 2]
              0   StC_Y_M      - StC Y mass (kg) [must equal StC_X_M for StC_DOF_MODE = 2]
         234500   StC_Z_M      - StC Z mass (kg) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
-          8000   StC_b_M      - StC Inerter mass (kg) [used only when StC_DOF_MODE=5 and StC_Z_DOF=TRUE]
+          7000   StC_b_M      - StC Inerter mass (kg) [used only when StC_DOF_MODE=5 and StC_Z_DOF=TRUE]
              0   StC_XY_M     - StC XY mass (kg) [used only when StC_DOF_MODE=2]
              0   StC_X_K      - StC X stiffness (N/m)
              0   StC_Y_K      - StC Y stiffness (N/m)
-         10000   StC_Z_K      - StC Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
-           450   StC_b_K      - StC b stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+          6000   StC_Z_K      - StC Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
+           150   StC_b_K      - StC b stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
              0   StC_X_C      - StC X damping (N/(m/s))
              0   StC_Y_C      - StC Y damping (N/(m/s))
-           550   StC_Z_C      - StC Z damping (N/(m/s)) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE or StC_DOF_MODE=5]
+           650   StC_Z_C      - StC Z damping (N/(m/s)) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE or StC_DOF_MODE=5]
              0   StC_X_KS     - Stop spring X stiffness (N/m)
              0   StC_Y_KS     - Stop spring Y stiffness (N/m)
           1500   StC_Z_KS     - Stop spring Z stiffness (N/m) [used only when StC_DOF_MODE=1 and StC_Z_DOF=TRUE]
